@@ -17,22 +17,6 @@ class PreciousPeople extends ConsumerWidget {
     return MaterialApp.router(
       routerConfig: ref.watch(routerProvider),
       title: 'PreciousPeople',
-      // theme: ThemeData(
-      //   useMaterial3: true,
-      //   colorScheme: lightColorScheme,
-      // ),
-      // darkTheme: ThemeData(
-      //   useMaterial3: true,
-      //   colorScheme: darkColorScheme,
-      // ),
-      // themeMode: ThemeMode.system,
-      // FlexColorScheme is not in use!
-      // Here is a default Material 2 starting point theme setup for you.
-      //
-      // This theme was made for FlexColorScheme version 6.1.1. Make sure
-// you use same or higher version, but still same major version. If
-// you use a lower version, some properties may not be supported. In
-// that case you can also remove them after copying the theme to your app.
       theme: FlexThemeData.light(
         scheme: FlexScheme.bigStone,
         surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
