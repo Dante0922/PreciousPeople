@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:precious_people/authentication/views/intro_screen.dart';
+import 'package:precious_people/features/authentication/views/intro_screen.dart';
 
 class SplashScreen extends StatefulWidget {
-  static String routeUrl = "/slpash";
-  static String routeName = "slpash";
+  static String routeUrl = "/splash";
+  static String routeName = "splash";
   const SplashScreen({super.key});
 
   @override

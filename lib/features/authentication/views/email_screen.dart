@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:precious_people/authentication/views/user_info_screen.dart';
-import 'package:precious_people/authentication/views/widgets/form_button.dart';
+import 'package:precious_people/features/authentication/views/user_info_screen.dart';
+import 'package:precious_people/features/authentication/views/widgets/form_button.dart';
+import 'package:precious_people/features/authentication/views/widgets/input_field.dart';
 import 'package:precious_people/constants/gaps.dart';
 import 'package:precious_people/constants/sizes.dart';
 
@@ -24,6 +25,7 @@ class _EmailScreenState extends ConsumerState<EmailScreen> {
   String _passwordConfirm = "";
   bool _obscurePassword = true;
   bool _obscurePasswordConfirm = true;
+
   @override
   void initState() {
     super.initState();
@@ -48,6 +50,7 @@ class _EmailScreenState extends ConsumerState<EmailScreen> {
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _passwordConfirmController.dispose();
     super.dispose();
   }
 
@@ -108,6 +111,18 @@ class _EmailScreenState extends ConsumerState<EmailScreen> {
       );
       return false;
     }
+    final regExp =
+        RegExp(r"^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$");
+    if (!regExp.hasMatch(_password)) {
+      //정규식.hasMatch를 통해 _email의 양식이 정규식에 부합하는지 체크.
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          showCloseIcon: false,
+          content: Text("비밀번호는 문자/숫자/특수문자가 포함되어 있어야 합니다."),
+        ),
+      );
+      return false;
+    }
     return true;
   }
 
@@ -147,27 +162,10 @@ class _EmailScreenState extends ConsumerState<EmailScreen> {
                 ),
               ),
               Gaps.v12,
-              TextField(
-                controller: _emailController,
-                cursorColor: Theme.of(context).indicatorColor,
-                autocorrect: false,
-                maxLines: 1,
-                decoration: InputDecoration(
-                  fillColor: Theme.of(context).cardColor,
-                  suffix: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      GestureDetector(
-                        onTap: _onClearEmailTap,
-                        child: FaIcon(
-                          FontAwesomeIcons.solidCircleXmark,
-                          color: Colors.grey.shade500,
-                          size: Sizes.size20,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              InputField(
+                textEditingController: _emailController,
+                onTapFunction: _onClearEmailTap,
+                icon: FontAwesomeIcons.solidCircleXmark,
               ),
               Gaps.v24,
               const Text(
