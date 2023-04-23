@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:precious_people/common/widgets/nav_tab.dart';
 
 import '../constants/sizes.dart';
+import '../features/relationship/views/releationship_list_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   static const routeName = "MainNavigation";
@@ -26,7 +28,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   late int _selectedIndex = _tabs.indexOf(widget.tab);
 
   void _onTap(int index) {
-    // context.go("/${_tabs[index]}");
+    context.go("/${_tabs[index]}");
     setState(
       () {
         _selectedIndex = index;
@@ -36,7 +38,6 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const isDark = false;
     return Scaffold(
       resizeToAvoidBottomInset: false, // flutter는 키보드가 나타날 떄 자동으로 body를 축소시킨다.
       //이를 방지하기 위해 false를 해주면 키보드가 화면을 가리는 형태가 된다.
@@ -45,7 +46,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           Offstage(
             //Offstage는 네비게이터의 여러 탭을 한번에 구동시킨다. 이와 같이 처리해야 다른 탭에 갔다가 와도 캐시가 유지된다.
             offstage: _selectedIndex != 0,
-            child: Container(),
+            child: const RelationshipListScreen(),
           ),
           Offstage(
             offstage: _selectedIndex != 1,

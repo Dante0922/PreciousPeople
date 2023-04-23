@@ -82,16 +82,26 @@ class IntroScreen extends StatelessWidget {
       ),
       bottomNavigationBar: Container(
         child: Padding(
-          padding: const EdgeInsets.all(25),
+          padding: const EdgeInsets.all(30),
           child: Row(
+            // ####Button 사이즈 변경해야 함!####
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CupertinoButton(
+                padding: const EdgeInsets.symmetric(
+                  vertical: Sizes.size14,
+                  horizontal: Sizes.size48 - 0.5,
+                ),
                 color: Theme.of(context).primaryColor,
                 onPressed: () => _onLogInTap(context),
                 child: const Text("로그인"),
               ),
               Gaps.h10,
               CupertinoButton(
+                padding: const EdgeInsets.symmetric(
+                  vertical: Sizes.size14,
+                  horizontal: Sizes.size40,
+                ),
                 color: Theme.of(context).primaryColor,
                 onPressed: () => _onSignUpTap(context),
                 child: const Text("회원가입"),

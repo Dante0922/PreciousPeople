@@ -10,7 +10,7 @@ import 'common/main_navigation_screen.dart';
 final routerProvider = Provider(
   (ref) {
     return GoRouter(
-      initialLocation: "/splash",
+      initialLocation: "/home",
       redirect: (context, state) {
         return null;
       },
