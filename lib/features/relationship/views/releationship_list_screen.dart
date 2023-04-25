@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:precious_people/features/memory/views/save_memory_screen.dart';
 import 'package:precious_people/features/relationship/views/widgets/relation_card.dart';
 
 import '../../../constants/sizes.dart';
@@ -14,6 +15,14 @@ class RelationshipListScreen extends ConsumerStatefulWidget {
 
 class _RelationshipListScreenState
     extends ConsumerState<RelationshipListScreen> {
+  void _onLongPressCard() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const SaveMemoryScreen(),
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +41,8 @@ class _RelationshipListScreenState
           Sizes.size20,
         ),
         itemBuilder: (context, index) => LayoutBuilder(
-          builder: (context, constraints) => const RelationCard(),
+          builder: (context, constraints) => GestureDetector(
+              onLongPress: _onLongPressCard, child: const RelationCard()),
         ),
       ),
     );

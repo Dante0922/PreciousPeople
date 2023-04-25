@@ -5,6 +5,7 @@ import 'package:precious_people/common/widgets/nav_tab.dart';
 
 import '../constants/sizes.dart';
 import '../features/relationship/views/releationship_list_screen.dart';
+import '../features/settings/views/settings_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   static const routeName = "MainNavigation";
@@ -58,7 +59,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           ),
           Offstage(
             offstage: _selectedIndex != 3,
-            child: Container(),
+            child: const SettingsScreen(),
           ),
         ],
       ),
