@@ -46,17 +46,22 @@ class _RelationCardState extends ConsumerState<RelationCard> {
                         Gaps.h20,
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Gaps.v8,
-                            Text(
-                              "홍길동",
+                            const Text(
+                              "유진",
                               style: TextStyle(
                                 fontSize: Sizes.size24,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
                             Gaps.v4,
-                            Text("관심그룹1"),
+                            Text(
+                              "사랑",
+                              style: TextStyle(
+                                color: Colors.grey.shade700,
+                              ),
+                            ),
                           ],
                         )
                       ],
@@ -67,10 +72,18 @@ class _RelationCardState extends ConsumerState<RelationCard> {
                     top: 24,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text("내일"),
+                      children: [
+                        const Text(
+                          "Timer: 오늘",
+                          style: TextStyle(fontWeight: FontWeight.w600),
+                        ),
                         Gaps.v12,
-                        Text("마지막 기록: 일주일 전"),
+                        Text(
+                          "마지막 기록: 하루 전",
+                          style: TextStyle(
+                            color: Colors.grey.shade700,
+                          ),
+                        ),
                       ],
                     ),
                   )

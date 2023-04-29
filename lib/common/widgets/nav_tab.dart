@@ -23,15 +23,16 @@ class NavTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const isDark = false; //isDarkMode(context);
+    const isDark = false;
     return Expanded(
       child: GestureDetector(
         onTap: () => onTap(),
         child: Container(
+          color: Colors.white,
           child: AnimatedOpacity(
             opacity: isSelected ? 1 : 0.6,
             duration: const Duration(
-              milliseconds: 300,
+              milliseconds: 100,
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
