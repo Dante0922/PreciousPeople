@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:precious_people/common/widgets/nav_tab.dart';
 
 import '../constants/sizes.dart';
+import '../features/friend/views/friend_list_screen.dart';
 import '../features/relationship/views/releationship_list_screen.dart';
 import '../features/settings/views/settings_screen.dart';
 
@@ -51,7 +52,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           ),
           Offstage(
             offstage: _selectedIndex != 1,
-            child: Container(),
+            child: const FriendListScreen(),
           ),
           Offstage(
             offstage: _selectedIndex != 2,

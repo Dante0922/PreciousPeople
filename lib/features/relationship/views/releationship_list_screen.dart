@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:precious_people/features/memory/views/save_memory_screen.dart';
-import 'package:precious_people/features/relationship/set_relation_timer.dart';
+import 'package:precious_people/features/relationship/views/set_relation_timer_screen.dart';
 import 'package:precious_people/features/relationship/views/widgets/relation_card.dart';
 
 import '../../../constants/sizes.dart';
