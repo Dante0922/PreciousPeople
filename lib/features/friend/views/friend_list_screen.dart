@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:precious_people/constants/sizes.dart';
+import 'package:precious_people/features/friend/views/register_friend_screen.dart';
 import 'package:precious_people/features/friend/views/widgets/friend_card.dart';
 
 import '../../../constants/gaps.dart';
@@ -24,6 +26,15 @@ class _FriendListScreenState extends ConsumerState<FriendListScreen> {
     );
   }
 
+  void _registerFriend() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const RegisterFriendScreen(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +42,19 @@ class _FriendListScreenState extends ConsumerState<FriendListScreen> {
         title: const Text(
           "친구목록",
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(
+              right: Sizes.size16,
+            ),
+            child: IconButton(
+              onPressed: _registerFriend,
+              icon: const FaIcon(
+                FontAwesomeIcons.plus,
+              ),
+            ),
+          ),
+        ],
       ),
       body: ListView.separated(
         padding: const EdgeInsets.all(

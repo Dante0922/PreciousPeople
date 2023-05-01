@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:precious_people/constants/gaps.dart';
 import 'package:precious_people/constants/sizes.dart';
 import 'package:precious_people/features/memory/views/widgets/emotion_button.dart';
@@ -66,6 +67,10 @@ class _SaveMemoryScreenState extends ConsumerState<SaveMemoryScreen> {
 
   void _onScaffoldTap() {
     FocusScope.of(context).unfocus();
+  }
+
+  void _submit() {
+    context.pop();
   }
 
   @override
@@ -168,7 +173,7 @@ class _SaveMemoryScreenState extends ConsumerState<SaveMemoryScreen> {
           ],
         ),
         bottomNavigationBar: GestureDetector(
-          onTap: () {},
+          onTap: _submit,
           child: const Padding(
             padding: EdgeInsets.only(
               bottom: Sizes.size64,

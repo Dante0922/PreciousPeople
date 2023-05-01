@@ -20,7 +20,7 @@ class FriendCard extends ConsumerWidget {
               Row(
                 children: [
                   CircleAvatar(
-                    radius: Sizes.size32,
+                    radius: Sizes.size28,
                     backgroundColor: Theme.of(context).primaryColor,
                     child: const FaIcon(
                       FontAwesomeIcons.user,

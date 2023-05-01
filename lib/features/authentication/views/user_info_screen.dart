@@ -102,7 +102,7 @@ class _UserInfoScreenState extends ConsumerState<UserInfoScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "회원가입",
+          "기본정보",
         ),
       ),
       body: SafeArea(

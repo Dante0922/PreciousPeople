@@ -8,11 +8,14 @@ class InputField extends ConsumerWidget {
   final IconData icon;
   final void Function() onTapFunction;
   final TextEditingController textEditingController;
+  final String? hintText;
+
   const InputField({
     super.key,
     required this.textEditingController,
     required this.onTapFunction,
     required this.icon,
+    this.hintText,
   });
 
   @override
@@ -23,6 +26,7 @@ class InputField extends ConsumerWidget {
       autocorrect: false,
       maxLines: 1,
       decoration: InputDecoration(
+        hintText: hintText,
         fillColor: Theme.of(context).cardColor,
         suffix: Row(
           mainAxisSize: MainAxisSize.min,
