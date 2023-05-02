@@ -16,7 +16,7 @@ class SetRelationTimer extends ConsumerStatefulWidget {
 
 class _SetRelationTimerState extends ConsumerState<SetRelationTimer> {
   int _currentValue = 1;
-  String _interval = "";
+  String _interval = "일";
 
   void _numValueChanged(value) {
     setState(() {

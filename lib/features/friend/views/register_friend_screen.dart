@@ -24,10 +24,28 @@ class _RegisterFriendScreenState extends ConsumerState<RegisterFriendScreen> {
       TextEditingController();
 
   DateTime initialDate = DateTime.now();
+  String _name = "";
+  String _momentDate = "";
+  String _contact = "";
 
   @override
   void initState() {
     super.initState();
+    _nameEditingController.addListener(() {
+      setState(() {
+        _name = _nameEditingController.text;
+      });
+    });
+    _momentEditingController.addListener(() {
+      setState(() {
+        _momentDate = _momentEditingController.text;
+      });
+    });
+    _contactEditingController.addListener(() {
+      setState(() {
+        _contact = _contactEditingController.text;
+      });
+    });
   }
 
   @override
@@ -44,6 +62,15 @@ class _RegisterFriendScreenState extends ConsumerState<RegisterFriendScreen> {
   }
 
   void _submit() {
+    if (_name.isEmpty || _momentDate.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          showCloseIcon: false,
+          content: Text("이름과 시기를 등록하세요."),
+        ),
+      );
+      return;
+    }
     Navigator.push(
       context,
       MaterialPageRoute(

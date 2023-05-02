@@ -49,7 +49,7 @@ class _RelationCardState extends ConsumerState<RelationCard> {
                           children: [
                             Gaps.v8,
                             const Text(
-                              "유진",
+                              "홍길동",
                               style: TextStyle(
                                 fontSize: Sizes.size24,
                                 fontWeight: FontWeight.w500,
@@ -57,7 +57,7 @@ class _RelationCardState extends ConsumerState<RelationCard> {
                             ),
                             Gaps.v4,
                             Text(
-                              "사랑",
+                              "친구",
                               style: TextStyle(
                                 color: Colors.grey.shade700,
                               ),
