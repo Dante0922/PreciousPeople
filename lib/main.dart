@@ -6,6 +6,7 @@ import 'package:precious_people/router.dart';
 
 /*  메모:
   릴리즈 설치: flutter run -d dante --release
+  homebrew 말 안 들을 때: eval $(/opt/homebrew/bin/brew shellenv) 
 */
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

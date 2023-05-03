@@ -56,7 +56,7 @@ class _RelationshipListScreenState
             itemBuilder: (context, index) => LayoutBuilder(
               builder: (context, constraints) => GestureDetector(
                 onLongPress: _onLongPressCard,
-                child: const RelationCard(),
+                child: RelationCard(index: index),
               ),
             ),
           ),
