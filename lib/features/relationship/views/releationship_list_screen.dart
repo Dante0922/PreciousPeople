@@ -25,7 +25,7 @@ class _RelationshipListScreenState
     );
   }
 
-  void _onTapPlusButton() {
+  void _setRerationTimer() {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -38,7 +38,13 @@ class _RelationshipListScreenState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("소중한 관계"),
+        title: Text(
+          "소중한 관계",
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.tertiary,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ),
       body: Stack(
         children: [
@@ -54,25 +60,25 @@ class _RelationshipListScreenState
               Sizes.size20,
             ),
             itemBuilder: (context, index) => LayoutBuilder(
-              builder: (context, constraints) => GestureDetector(
-                onLongPress: _onLongPressCard,
-                child: RelationCard(index: index),
+              builder: (context, constraints) => RelationCard(
+                index: index,
+                name: "유진",
               ),
             ),
           ),
-          Positioned(
-            right: Sizes.size40,
-            bottom: Sizes.size32,
-            child: FloatingActionButton(
-              backgroundColor: Theme.of(context).primaryColor,
-              onPressed: _onTapPlusButton,
-              child: const Icon(
-                Icons.add,
-                size: Sizes.size52,
-                color: Colors.amber,
-              ),
-            ),
-          ),
+          // Positioned(
+          //   right: Sizes.size40,
+          //   bottom: Sizes.size32,
+          //   child: FloatingActionButton(
+          //     backgroundColor: Theme.of(context).primaryColor,
+          //     onPressed: _setRerationTimer,
+          //     child: const Icon(
+          //       Icons.add,
+          //       size: Sizes.size52,
+          //       color: Colors.amber,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

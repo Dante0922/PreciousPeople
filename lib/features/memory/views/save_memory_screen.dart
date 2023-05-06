@@ -70,7 +70,7 @@ class _SaveMemoryScreenState extends ConsumerState<SaveMemoryScreen> {
   }
 
   void _submit() {
-    context.pop();
+    context.pushReplacement('/home');
   }
 
   @override

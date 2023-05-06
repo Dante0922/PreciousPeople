@@ -22,8 +22,21 @@ class PreciousPeople extends ConsumerWidget {
     return MaterialApp.router(
       routerConfig: ref.watch(routerProvider),
       title: 'PreciousPeople',
+      // This theme was made for FlexColorScheme version 6.1.1. Make sure
+// you use same or higher version, but still same major version. If
+// you use a lower version, some properties may not be supported. In
+// that case you can also remove them after copying the theme to your app.
       theme: FlexThemeData.light(
-        scheme: FlexScheme.bigStone,
+        colors: const FlexSchemeColor(
+          primary: Color(0xffaae2d1),
+          primaryContainer: Color(0xffffffff),
+          secondary: Color(0xFFFFB7B7),
+          secondaryContainer: Color(0xFFFFB7B7),
+          tertiary: Color(0xFF25628D),
+          tertiaryContainer: Color(0xFF25628D),
+          appBarColor: Color(0xffffdbcf),
+          error: Color(0xffb00020),
+        ),
         surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
         blendLevel: 9,
         subThemesData: const FlexSubThemesData(
@@ -36,9 +49,17 @@ class PreciousPeople extends ConsumerWidget {
         // To use the playground font, add GoogleFonts package and uncomment
         // fontFamily: GoogleFonts.notoSans().fontFamily,
       ),
-
       darkTheme: FlexThemeData.dark(
-        scheme: FlexScheme.bigStone,
+        colors: const FlexSchemeColor(
+          primary: Color(0xff9fc9ff),
+          primaryContainer: Color(0xff00325b),
+          secondary: Color(0xffffb59d),
+          secondaryContainer: Color(0xff872100),
+          tertiary: Color(0xff86d2e1),
+          tertiaryContainer: Color(0xff004e59),
+          appBarColor: Color(0xff872100),
+          error: Color(0xffcf6679),
+        ),
         surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
         blendLevel: 15,
         subThemesData: const FlexSubThemesData(
@@ -50,6 +71,10 @@ class PreciousPeople extends ConsumerWidget {
         // To use the Playground font, add GoogleFonts package and uncomment
         // fontFamily: GoogleFonts.notoSans().fontFamily,
       ),
+// If you do not have a themeMode switch, uncomment this line
+// to let the device system mode control the theme mode:
+// themeMode: ThemeMode.system,
+
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

@@ -94,7 +94,12 @@ class IntroScreen extends StatelessWidget {
                 ),
                 color: Theme.of(context).primaryColor,
                 onPressed: () => _onLogInTap(context),
-                child: const Text("로그인"),
+                child: const Text(
+                  "로그인",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
               ),
               Gaps.h10,
               CupertinoButton(
@@ -104,7 +109,12 @@ class IntroScreen extends StatelessWidget {
                 ),
                 color: Theme.of(context).primaryColor,
                 onPressed: () => _onSignUpTap(context),
-                child: const Text("회원가입"),
+                child: const Text(
+                  "회원가입",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ],
           ),

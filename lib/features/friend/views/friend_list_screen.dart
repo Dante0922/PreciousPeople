@@ -39,18 +39,23 @@ class _FriendListScreenState extends ConsumerState<FriendListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           "친구목록",
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.tertiary,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(
-              right: Sizes.size16,
+              right: Sizes.size20,
             ),
             child: IconButton(
               onPressed: _registerFriend,
-              icon: const FaIcon(
+              icon: FaIcon(
                 FontAwesomeIcons.plus,
+                color: Theme.of(context).colorScheme.tertiary,
               ),
             ),
           ),
@@ -58,7 +63,7 @@ class _FriendListScreenState extends ConsumerState<FriendListScreen> {
       ),
       body: ListView.separated(
         padding: const EdgeInsets.all(
-          Sizes.size16,
+          Sizes.size20,
         ),
         itemBuilder: (context, index) {
           return FriendCard(onTapFunction: _onTapStar);

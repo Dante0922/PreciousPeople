@@ -69,9 +69,10 @@ class _SetRelationTimerState extends ConsumerState<SetRelationTimer> {
                       _interval == "월"
                           ? "$_currentValue 개$_interval"
                           : "$_currentValue $_interval",
-                      style: const TextStyle(
-                        color: Colors.amber,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.tertiary,
                         fontSize: Sizes.size44,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ],
@@ -98,8 +99,8 @@ class _SetRelationTimerState extends ConsumerState<SetRelationTimer> {
                       value: _currentValue,
                       onChanged: _numValueChanged,
                       textStyle: const TextStyle(color: Colors.white),
-                      selectedTextStyle: const TextStyle(
-                        color: Colors.amber,
+                      selectedTextStyle: TextStyle(
+                        color: Theme.of(context).colorScheme.tertiary,
                         fontWeight: FontWeight.w600,
                         fontSize: Sizes.size32,
                       ),
@@ -108,14 +109,14 @@ class _SetRelationTimerState extends ConsumerState<SetRelationTimer> {
                       children: [
                         FloatingActionButton(
                           heroTag: 1,
-                          backgroundColor: Theme.of(context).primaryColor,
+                          backgroundColor: _interval == "일"
+                              ? Theme.of(context).colorScheme.secondary
+                              : Theme.of(context).primaryColor,
                           onPressed: () => _setInterval("일"),
-                          child: Text(
+                          child: const Text(
                             "일",
                             style: TextStyle(
-                                color: _interval == "일"
-                                    ? Colors.amber
-                                    : Colors.white,
+                                color: Colors.white,
                                 fontSize: Sizes.size20,
                                 fontWeight: FontWeight.w600),
                           ),
@@ -123,14 +124,14 @@ class _SetRelationTimerState extends ConsumerState<SetRelationTimer> {
                         Gaps.h10,
                         FloatingActionButton(
                           heroTag: 2,
-                          backgroundColor: Theme.of(context).primaryColor,
+                          backgroundColor: _interval == "주"
+                              ? Theme.of(context).colorScheme.secondary
+                              : Theme.of(context).primaryColor,
                           onPressed: () => _setInterval("주"),
-                          child: Text(
+                          child: const Text(
                             "주",
                             style: TextStyle(
-                                color: _interval == "주"
-                                    ? Colors.amber
-                                    : Colors.white,
+                                color: Colors.white,
                                 fontSize: Sizes.size20,
                                 fontWeight: FontWeight.w600),
                           ),
@@ -138,14 +139,14 @@ class _SetRelationTimerState extends ConsumerState<SetRelationTimer> {
                         Gaps.h10,
                         FloatingActionButton(
                           heroTag: 3,
-                          backgroundColor: Theme.of(context).primaryColor,
+                          backgroundColor: _interval == "월"
+                              ? Theme.of(context).colorScheme.secondary
+                              : Theme.of(context).primaryColor,
                           onPressed: () => _setInterval("월"),
-                          child: Text(
+                          child: const Text(
                             "월",
                             style: TextStyle(
-                                color: _interval == "월"
-                                    ? Colors.amber
-                                    : Colors.white,
+                                color: Colors.white,
                                 fontSize: Sizes.size20,
                                 fontWeight: FontWeight.w600),
                           ),
@@ -158,13 +159,19 @@ class _SetRelationTimerState extends ConsumerState<SetRelationTimer> {
             ),
             Gaps.v72,
             CupertinoButton(
-              color: Theme.of(context).primaryColor,
+              color: Theme.of(context).colorScheme.secondary,
               padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width * 0.43,
                 vertical: Sizes.size20,
               ),
               onPressed: _submit,
-              child: const Text("등록"),
+              child: const Text(
+                "등록",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
           ],
         ),

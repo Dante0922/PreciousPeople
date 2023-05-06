@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 5), () {
       _loadingComplete();
     });
   }
@@ -34,20 +34,20 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: const Color(0xFFAAE2D1),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
             Text(
-              "Precious People",
+              "소중한 사람들",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 32,
               ),
             ),
             Text(
-              "Wait Screen",
+              "당신의 소중한 인연을 이어가세요.",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,

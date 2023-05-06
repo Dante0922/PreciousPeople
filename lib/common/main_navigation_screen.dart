@@ -89,7 +89,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                 text: "Friends",
                 isSelected: _selectedIndex == 1,
                 icon: FontAwesomeIcons.solidUser,
-                selectedIcon: FontAwesomeIcons.userGroup,
+                selectedIcon: FontAwesomeIcons.solidUser,
                 selectedIndex: _selectedIndex,
                 onTap: () => _onTap(
                     1), //widget을 만들어서 onTap을 required로 지정해뒀다. _onTap(0)을 실행시킴.
@@ -97,8 +97,8 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               NavTab(
                 text: "Memories",
                 isSelected: _selectedIndex == 2,
-                icon: FontAwesomeIcons.memory,
-                selectedIcon: FontAwesomeIcons.solidHeart,
+                icon: FontAwesomeIcons.cloud,
+                selectedIcon: FontAwesomeIcons.cloud,
                 selectedIndex: _selectedIndex,
                 onTap: () => _onTap(
                     2), //widget을 만들어서 onTap을 required로 지정해뒀다. _onTap(0)을 실행시킴.
@@ -106,7 +106,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               NavTab(
                 text: "Settings",
                 isSelected: _selectedIndex == 3,
-                icon: FontAwesomeIcons.ellipsis,
+                icon: FontAwesomeIcons.ellipsisVertical,
                 selectedIcon: FontAwesomeIcons.ellipsisVertical,
                 selectedIndex: _selectedIndex,
                 onTap: () => _onTap(
