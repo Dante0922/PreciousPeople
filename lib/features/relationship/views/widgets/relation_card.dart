@@ -18,7 +18,6 @@ class RelationCard extends ConsumerStatefulWidget {
 
 class _RelationCardState extends ConsumerState<RelationCard> {
   late String name = widget.name;
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {

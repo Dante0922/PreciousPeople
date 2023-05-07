@@ -105,74 +105,119 @@ class _SetRelationTimerState extends ConsumerState<SetRelationTimer> {
                     Sizes.size14,
                   ),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                child: Column(
                   children: [
-                    NumberPicker(
-                      minValue: 1,
-                      maxValue: 30,
-                      value: _currentValue,
-                      onChanged: _numValueChanged,
-                      textStyle: const TextStyle(color: Colors.white),
-                      selectedTextStyle: TextStyle(
-                        color: Theme.of(context).colorScheme.tertiary,
-                        fontWeight: FontWeight.w600,
-                        fontSize: Sizes.size32,
+                    Gaps.v20,
+                    Center(
+                      child: Text(
+                        "타이머 설정",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.tertiary,
+                        ),
                       ),
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        FloatingActionButton(
-                          heroTag: 1,
-                          backgroundColor: _interval == "일"
-                              ? Theme.of(context).colorScheme.secondary
-                              : Theme.of(context).primaryColor,
-                          onPressed: () => _setInterval("일"),
-                          child: const Text(
-                            "일",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: Sizes.size20,
-                                fontWeight: FontWeight.w600),
+                        NumberPicker(
+                          minValue: 1,
+                          maxValue: 30,
+                          value: _currentValue,
+                          onChanged: _numValueChanged,
+                          textStyle: const TextStyle(color: Colors.white),
+                          selectedTextStyle: TextStyle(
+                            color: Theme.of(context).colorScheme.tertiary,
+                            fontWeight: FontWeight.w600,
+                            fontSize: Sizes.size32,
                           ),
                         ),
-                        Gaps.h10,
-                        FloatingActionButton(
-                          heroTag: 2,
-                          backgroundColor: _interval == "주"
-                              ? Theme.of(context).colorScheme.secondary
-                              : Theme.of(context).primaryColor,
-                          onPressed: () => _setInterval("주"),
-                          child: const Text(
-                            "주",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: Sizes.size20,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                        Gaps.h10,
-                        FloatingActionButton(
-                          heroTag: 3,
-                          backgroundColor: _interval == "월"
-                              ? Theme.of(context).colorScheme.secondary
-                              : Theme.of(context).primaryColor,
-                          onPressed: () => _setInterval("월"),
-                          child: const Text(
-                            "월",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: Sizes.size20,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ),
+                        Row(
+                          children: [
+                            FloatingActionButton(
+                              heroTag: 1,
+                              backgroundColor: _interval == "일"
+                                  ? Theme.of(context).colorScheme.secondary
+                                  : Theme.of(context).primaryColor,
+                              onPressed: () => _setInterval("일"),
+                              child: const Text(
+                                "일",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: Sizes.size20,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                            Gaps.h10,
+                            FloatingActionButton(
+                              heroTag: 2,
+                              backgroundColor: _interval == "주"
+                                  ? Theme.of(context).colorScheme.secondary
+                                  : Theme.of(context).primaryColor,
+                              onPressed: () => _setInterval("주"),
+                              child: const Text(
+                                "주",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: Sizes.size20,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                            Gaps.h10,
+                            FloatingActionButton(
+                              heroTag: 3,
+                              backgroundColor: _interval == "월"
+                                  ? Theme.of(context).colorScheme.secondary
+                                  : Theme.of(context).primaryColor,
+                              onPressed: () => _setInterval("월"),
+                              child: const Text(
+                                "월",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: Sizes.size20,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                          ],
+                        )
                       ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Gaps.v24,
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.2,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.grey,
+                      blurRadius: 5,
+                      offset: Offset(3, 4),
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(
+                    Sizes.size14,
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    Gaps.v20,
+                    Center(
+                      child: Text(
+                        "최근 기록",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.tertiary,
+                        ),
+                      ),
                     )
                   ],
                 ),
               ),
             ),
-            Gaps.v72,
           ],
         ),
       ),

@@ -66,7 +66,7 @@ class _FriendListScreenState extends ConsumerState<FriendListScreen> {
           Sizes.size20,
         ),
         itemBuilder: (context, index) {
-          return FriendCard(onTapFunction: _onTapStar);
+          return const FriendCard();
         },
         itemCount: 20,
         separatorBuilder: (context, index) => Gaps.v12,
