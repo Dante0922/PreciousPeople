@@ -18,6 +18,7 @@ class RelationCard extends ConsumerStatefulWidget {
 
 class _RelationCardState extends ConsumerState<RelationCard> {
   late String name = widget.name;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -33,7 +34,7 @@ class _RelationCardState extends ConsumerState<RelationCard> {
     return;
   }
 
-  void _setRerationCard(BuildContext context) {
+  void _saveMemory() {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -42,9 +43,17 @@ class _RelationCardState extends ConsumerState<RelationCard> {
     );
   }
 
-  void _setSnooze() {
+  void _setSnooze(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Theme.of(context).colorScheme.secondary,
+        content: const Text(
+          "Snooze!",
+        ),
+      ),
+    );
     setState(() {
-      name = "hello";
+      name = "Snooze";
     });
   }
 
@@ -57,6 +66,56 @@ class _RelationCardState extends ConsumerState<RelationCard> {
     );
   }
 
+  void _setDone(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Theme.of(context).colorScheme.secondary,
+        showCloseIcon: false,
+        duration: const Duration(seconds: 3),
+        content: Stack(
+          children: [
+            Row(
+              children: const [
+                Gaps.h16,
+                Text("타이머 완료"),
+              ],
+            ),
+            Positioned(
+              right: Sizes.size16,
+              child: GestureDetector(
+                onTap: () {
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                  _saveMemory();
+                }, // 스터디 때 질문할 것..
+                child: Container(
+                  width: 80,
+                  height: 18,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(
+                      20,
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "추억 등록",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+    setState(() {
+      name = "done";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -64,31 +123,42 @@ class _RelationCardState extends ConsumerState<RelationCard> {
       child: Slidable(
         key: UniqueKey(),
         startActionPane: ActionPane(
+          key: UniqueKey(),
           extentRatio: 0.25,
           motion: const ScrollMotion(),
+          dismissible: DismissiblePane(
+            onDismissed: () {
+              _setSnooze(context);
+            },
+          ),
           children: [
             SlidableAction(
+              key: UniqueKey(),
               spacing: 5,
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               foregroundColor: Theme.of(context).colorScheme.secondary,
-              onPressed: _setRerationCard,
-              icon: Icons.cloud,
-              label: '추억 등록',
+              onPressed: _setSnooze,
+              icon: Icons.snooze,
+              label: '스누즈',
             ),
           ],
         ),
         endActionPane: ActionPane(
+          key: UniqueKey(),
           extentRatio: 0.25,
-          dismissible: DismissiblePane(onDismissed: _setSnooze),
+          dismissible: DismissiblePane(
+            onDismissed: () => _setDone(context),
+          ),
           motion: const ScrollMotion(),
           children: [
             SlidableAction(
+              key: UniqueKey(),
               spacing: 5,
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               foregroundColor: Theme.of(context).colorScheme.secondary,
-              onPressed: doNothing,
-              icon: Icons.snooze,
-              label: '스누즈!',
+              onPressed: _setDone, // 스터디 때 질문할 것.
+              icon: Icons.done,
+              label: '완료!',
             ),
           ],
         ),

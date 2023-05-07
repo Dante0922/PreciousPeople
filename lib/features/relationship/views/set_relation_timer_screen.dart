@@ -41,15 +41,23 @@ class _SetRelationTimerState extends ConsumerState<SetRelationTimer> {
         title: const Text("관계 타이머"),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width * 0.05,
+        ),
         child: Column(
           children: [
             Gaps.v20,
             Container(
-              width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height * 0.08,
               decoration: BoxDecoration(
                 color: Theme.of(context).primaryColor,
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.grey,
+                    blurRadius: 5,
+                    offset: Offset(3, 4),
+                  ),
+                ],
                 borderRadius: BorderRadius.circular(
                   Sizes.size14,
                 ),
@@ -86,6 +94,13 @@ class _SetRelationTimerState extends ConsumerState<SetRelationTimer> {
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor,
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.grey,
+                      blurRadius: 5,
+                      offset: Offset(3, 4),
+                    ),
+                  ],
                   borderRadius: BorderRadius.circular(
                     Sizes.size14,
                   ),
@@ -158,22 +173,29 @@ class _SetRelationTimerState extends ConsumerState<SetRelationTimer> {
               ),
             ),
             Gaps.v72,
-            CupertinoButton(
-              color: Theme.of(context).colorScheme.secondary,
-              padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.43,
-                vertical: Sizes.size20,
-              ),
-              onPressed: _submit,
-              child: const Text(
-                "등록",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
           ],
+        ),
+      ),
+      bottomNavigationBar: Container(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).padding.bottom +
+              MediaQuery.of(context).size.height * 0.01,
+          left: MediaQuery.of(context).size.width * 0.05,
+          right: MediaQuery.of(context).size.width * 0.05,
+        ),
+        child: CupertinoButton(
+          color: Theme.of(context).colorScheme.secondary,
+          padding: EdgeInsets.symmetric(
+            vertical: MediaQuery.of(context).size.height * 0.02,
+          ),
+          onPressed: _submit,
+          child: Text(
+            "등록",
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.tertiary,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
       ),
     );

@@ -39,7 +39,7 @@ class _RelationshipListScreenState
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "소중한 관계",
+          "소중한 사람들",
           style: TextStyle(
             color: Theme.of(context).colorScheme.tertiary,
             fontWeight: FontWeight.w600,
