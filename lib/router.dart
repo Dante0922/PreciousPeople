@@ -1,11 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:precious_people/features/authentication/views/intro_screen.dart';
-import 'package:precious_people/features/authentication/views/log_in_screen.dart';
-import 'package:precious_people/features/authentication/views/sign_up_screen.dart';
-import 'package:precious_people/features/authentication/views/splash_screen.dart';
+import 'package:precious_people/features/authentication/views/introScreen.dart';
+import 'package:precious_people/features/authentication/views/logInChoiceScreen.dart';
+import 'package:precious_people/features/authentication/views/signUpChoiceScreen.dart';
+import 'package:precious_people/features/authentication/views/splashScreen.dart';
 
-import 'common/main_navigation_screen.dart';
+import 'common/mainNavigationScreen.dart';
 
 final routerProvider = Provider(
   (ref) {

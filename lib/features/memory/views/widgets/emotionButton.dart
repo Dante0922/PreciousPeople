@@ -40,12 +40,12 @@ class _EmotionButtonState extends State<EmotionButton> {
         decoration: BoxDecoration(
           color: _isSelected
               ? Theme.of(context).primaryColor
-              : Colors.grey.shade300,
+              : Colors.grey.shade200,
           borderRadius: BorderRadius.circular(
             Sizes.size20,
           ),
           border: Border.all(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.grey.withOpacity(0.1),
           ),
           boxShadow: [
             BoxShadow(
@@ -58,8 +58,11 @@ class _EmotionButtonState extends State<EmotionButton> {
         child: Text(
           widget.emotion,
           style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: _isSelected ? Colors.white : Colors.black87),
+            fontWeight: FontWeight.bold,
+            color: _isSelected
+                ? Colors.white
+                : Theme.of(context).colorScheme.tertiary,
+          ),
         ),
       ),
     );

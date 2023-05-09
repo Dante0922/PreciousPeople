@@ -2,10 +2,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:precious_people/constants/gaps.dart';
+import 'package:precious_people/features/memory/views/saveMemorySelectPartScreen.dart';
 
 import '../../../../constants/sizes.dart';
-import '../../../memory/views/save_memory_screen.dart';
-import '../set_relation_timer_screen.dart';
+import '../setRelationTimerScreen.dart';
 
 class RelationCard extends ConsumerStatefulWidget {
   final int index;
@@ -37,7 +37,7 @@ class _RelationCardState extends ConsumerState<RelationCard> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const SaveMemoryScreen(),
+        builder: (context) => const SaveMemorySelectScreen(),
       ),
     );
   }

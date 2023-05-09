@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:precious_people/constants/gaps.dart';
 import 'package:precious_people/constants/sizes.dart';
-import 'package:precious_people/features/memory/views/widgets/emotion_button.dart';
+import 'package:precious_people/features/memory/views/widgets/emotionButton.dart';
 
 import '../../authentication/views/widgets/form_button.dart';
 
@@ -22,15 +22,15 @@ const emotions = [
   "유쾌함",
 ];
 
-class SaveMemoryScreen extends ConsumerStatefulWidget {
-  const SaveMemoryScreen({super.key});
+class SaveMemoryWriteScreen extends ConsumerStatefulWidget {
+  const SaveMemoryWriteScreen({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _SaveMemoryScreenState();
+      _SaveMemoryWriteScreenState();
 }
 
-class _SaveMemoryScreenState extends ConsumerState<SaveMemoryScreen> {
+class _SaveMemoryWriteScreenState extends ConsumerState<SaveMemoryWriteScreen> {
   final TextEditingController _memoryTextEditingController =
       TextEditingController();
   final TextEditingController _emotionEditingController =
@@ -154,7 +154,7 @@ class _SaveMemoryScreenState extends ConsumerState<SaveMemoryScreen> {
             ),
             child: FormButton(
               disabled: false,
-              text: "등록",
+              text: "다음",
             ),
           ),
         ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:precious_people/features/authentication/views/email_screen.dart';
+import 'package:precious_people/features/authentication/views/emailSignUpScreen.dart';
 import 'package:precious_people/features/authentication/views/widgets/auth_button.dart';
 import 'package:precious_people/constants/gaps.dart';
 import 'package:precious_people/constants/sizes.dart';

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:precious_people/features/authentication/views/intro_screen.dart';
+import 'package:precious_people/features/authentication/views/introScreen.dart';
 
 class SplashScreen extends StatefulWidget {
   static String routeUrl = "/splash";

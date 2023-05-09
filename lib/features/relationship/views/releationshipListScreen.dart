@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:precious_people/features/memory/views/save_memory_screen.dart';
-import 'package:precious_people/features/relationship/views/set_relation_timer_screen.dart';
+import 'package:precious_people/features/memory/views/saveMemoryWritePartScreen.dart';
+import 'package:precious_people/features/relationship/views/setRelationTimerScreen.dart';
 import 'package:precious_people/features/relationship/views/widgets/relation_card.dart';
 
 import '../../../constants/sizes.dart';
@@ -20,7 +20,7 @@ class _RelationshipListScreenState
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const SaveMemoryScreen(),
+        builder: (context) => const SaveMemoryWriteScreen(),
       ),
     );
   }
