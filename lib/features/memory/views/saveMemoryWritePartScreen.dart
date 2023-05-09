@@ -142,34 +142,6 @@ class _SaveMemoryScreenState extends ConsumerState<SaveMemoryScreen> {
                   ),
               ],
             ),
-            Gaps.v20,
-            Row(
-              children: [
-                Gaps.h10,
-                const Text(
-                  "대상: ",
-                  style: TextStyle(
-                    fontSize: Sizes.size20,
-                  ),
-                ),
-                SizedBox(
-                  height: Sizes.size40,
-                  width: Sizes.size80,
-                  child: Container(
-                    child: const Center(
-                      child: Text(
-                        "홍길동",
-                        style: TextStyle(
-                          fontSize: Sizes.size20,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Gaps.h72,
-                const Text("추가하기"),
-              ],
-            ),
           ],
         ),
         bottomNavigationBar: GestureDetector(

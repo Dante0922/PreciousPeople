@@ -28,9 +28,17 @@ class PreciousPeople extends ConsumerWidget {
 // that case you can also remove them after copying the theme to your app.
       theme: FlexThemeData.light(
         colors: const FlexSchemeColor(
-          primary: Color(0xffaae2d1),
+          // primary: Color(0xffaae2d1),
+          // primaryContainer: Color(0xffffffff),
+          // secondary: Color(0xFFFFB7B7),
+          // secondaryContainer: Color(0xFFFFB7B7),
+          // tertiary: Color(0xFF25628D),
+          // tertiaryContainer: Color(0xFF25628D),
+          // appBarColor: Color(0xffffdbcf),
+          // error: Color(0xffb00020),
+          primary: Color(0xFFBFC88F),
           primaryContainer: Color(0xffffffff),
-          secondary: Color(0xFFFFB7B7),
+          secondary: Color(0xFFB4D7EB),
           secondaryContainer: Color(0xFFFFB7B7),
           tertiary: Color(0xFF25628D),
           tertiaryContainer: Color(0xFF25628D),
