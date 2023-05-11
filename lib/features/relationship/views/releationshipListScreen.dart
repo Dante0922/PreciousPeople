@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:precious_people/features/memory/views/saveMemoryWritePartScreen.dart';
+
 import 'package:precious_people/features/relationship/views/setRelationTimerScreen.dart';
 import 'package:precious_people/features/relationship/views/widgets/relation_card.dart';
 
 import '../../../constants/sizes.dart';
+import '../../memory/views/saveMemorySelectPartScreen.dart';
 
 class RelationshipListScreen extends ConsumerStatefulWidget {
   const RelationshipListScreen({super.key});
@@ -20,7 +21,7 @@ class _RelationshipListScreenState
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const SaveMemoryWriteScreen(),
+        builder: (context) => const SaveMemorySelectScreen(),
       ),
     );
   }

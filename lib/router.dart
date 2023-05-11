@@ -4,6 +4,7 @@ import 'package:precious_people/features/authentication/views/introScreen.dart';
 import 'package:precious_people/features/authentication/views/logInChoiceScreen.dart';
 import 'package:precious_people/features/authentication/views/signUpChoiceScreen.dart';
 import 'package:precious_people/features/authentication/views/splashScreen.dart';
+import 'package:precious_people/features/memory/views/saveNotificationScreen.dart';
 
 import 'common/mainNavigationScreen.dart';
 
@@ -44,6 +45,11 @@ final routerProvider = Provider(
               tab: tab,
             );
           },
+        ),
+        GoRoute(
+          path: SaveNotificationScreen.routeUrl,
+          name: SaveNotificationScreen.routeName,
+          builder: (context, state) => const SaveNotificationScreen(),
         ),
       ],
     );

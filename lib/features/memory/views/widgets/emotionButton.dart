@@ -39,7 +39,7 @@ class _EmotionButtonState extends State<EmotionButton> {
         ),
         decoration: BoxDecoration(
           color: _isSelected
-              ? Theme.of(context).primaryColor
+              ? Theme.of(context).colorScheme.primary
               : Colors.grey.shade200,
           borderRadius: BorderRadius.circular(
             Sizes.size20,
@@ -61,7 +61,7 @@ class _EmotionButtonState extends State<EmotionButton> {
             fontWeight: FontWeight.bold,
             color: _isSelected
                 ? Colors.white
-                : Theme.of(context).colorScheme.tertiary,
+                : Theme.of(context).colorScheme.primary,
           ),
         ),
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:precious_people/constants/gaps.dart';
 import 'package:precious_people/constants/sizes.dart';
@@ -40,6 +41,7 @@ class _SaveMemorySelectScreenState
   final ScrollController _scrollController = ScrollController();
   String _memoryText = "";
   final _emotionList = [];
+  bool _isEndOfScreen = false;
   DateTime initialDate = DateTime.now();
   @override
   void initState() {
@@ -48,6 +50,15 @@ class _SaveMemorySelectScreenState
         _memoryText = _memoryTextEditingController.text;
       });
     });
+    _emotionEditingController.addListener(() {});
+    _scrollController.addListener(() {
+      if (_scrollController.offset >=
+          _scrollController.position.maxScrollExtent) {
+        setState(() {
+          _isEndOfScreen = true;
+        });
+      }
+    });
     super.initState();
   }
 
@@ -55,6 +66,7 @@ class _SaveMemorySelectScreenState
   void dispose() {
     _memoryTextEditingController.dispose();
     _emotionEditingController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -72,7 +84,7 @@ class _SaveMemorySelectScreenState
   }
 
   void _submit() {
-    context.pushReplacement('/home');
+    context.goNamed('saveNotification');
   }
 
   @override
@@ -81,7 +93,7 @@ class _SaveMemorySelectScreenState
       onTap: _onScaffoldTap,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("추억 등록"),
+          title: const Text("추억 기록"),
         ),
         body: SingleChildScrollView(
           controller: _scrollController,
@@ -103,7 +115,14 @@ class _SaveMemorySelectScreenState
                   height: MediaQuery.of(context).size.height * 0.2,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.secondary,
+                      borderRadius: BorderRadius.circular(
+                        20,
+                      ),
+                      border: Border.all(
+                        color: Theme.of(context).primaryColor,
+                        width: 4,
+                      ),
+                      color: Colors.white,
                       boxShadow: const [
                         BoxShadow(
                           color: Colors.grey,
@@ -111,16 +130,14 @@ class _SaveMemorySelectScreenState
                           offset: Offset(3, 4),
                         ),
                       ],
-                      borderRadius: BorderRadius.circular(
-                        Sizes.size14,
-                      ),
                     ),
                     child: Column(
                       children: [
-                        const Text(
-                          "기록한 날짜를 선택해주세요.",
+                        Gaps.v8,
+                        Text(
+                          "기록할 날짜를 선택해주세요.",
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.tertiary,
                           ),
                         ),
                         Gaps.v8,
@@ -145,7 +162,14 @@ class _SaveMemorySelectScreenState
                   height: MediaQuery.of(context).size.height * 0.4,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.secondary,
+                      borderRadius: BorderRadius.circular(
+                        20,
+                      ),
+                      border: Border.all(
+                        color: Theme.of(context).primaryColor,
+                        width: 4,
+                      ),
+                      color: Colors.white,
                       boxShadow: const [
                         BoxShadow(
                           color: Colors.grey,
@@ -153,16 +177,14 @@ class _SaveMemorySelectScreenState
                           offset: Offset(3, 4),
                         ),
                       ],
-                      borderRadius: BorderRadius.circular(
-                        Sizes.size14,
-                      ),
                     ),
                     child: Column(
                       children: [
-                        const Text(
-                          "느꼈던 감정을 간단히 남겨보세요.",
+                        Gaps.v8,
+                        Text(
+                          "느꼈던 감정을 남겨보세요.",
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.tertiary,
                           ),
                         ),
                         Gaps.v8,
@@ -186,24 +208,139 @@ class _SaveMemorySelectScreenState
                     ),
                   ),
                 ),
+                Gaps.v20,
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.4,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        20,
+                      ),
+                      border: Border.all(
+                        color: Theme.of(context).primaryColor,
+                        width: 4,
+                      ),
+                      color: Colors.white,
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 5,
+                          offset: Offset(3, 4),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      children: [
+                        Gaps.v8,
+                        Text(
+                          "추억을 기록해보세요.",
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.tertiary,
+                          ),
+                        ),
+                        Gaps.v8,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: Sizes.size10,
+                          ),
+                          child: TextField(
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.tertiary,
+                            ),
+                            controller: _memoryTextEditingController,
+                            cursorColor: Theme.of(context).colorScheme.primary,
+                            keyboardType: TextInputType.multiline,
+                            maxLines: 10,
+                            autocorrect: false,
+                            decoration: InputDecoration(
+                              hintText: "(선택) 추억을 자세히 남겨볼 수 있어요.",
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey.shade200,
+                                ),
+                              ),
+                              focusedBorder: const UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Gaps.v8,
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.1,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        20,
+                      ),
+                      border: Border.all(
+                        color: Theme.of(context).primaryColor,
+                        width: 4,
+                      ),
+                      color: Colors.white,
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 5,
+                          offset: Offset(3, 4),
+                        ),
+                      ],
+                    ),
+                    child: Stack(
+                      alignment: AlignmentDirectional.center,
+                      children: [
+                        Positioned(
+                          left: 10,
+                          child: Text(
+                            "추억이 담긴 사진을 지정하세요",
+                            style: TextStyle(
+                              color: Colors.grey.shade500,
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          right: 30,
+                          child: FaIcon(
+                            FontAwesomeIcons.image,
+                            size: 40,
+                            color: Colors.grey.shade500,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
         ),
-        bottomNavigationBar: GestureDetector(
-          onTap: _submit,
-          child: const Padding(
-            padding: EdgeInsets.only(
-              bottom: Sizes.size32,
-              right: Sizes.size32,
-              left: Sizes.size32,
-            ),
-            child: FormButton(
-              disabled: false,
-              text: "다음",
-            ),
-          ),
-        ),
+        bottomNavigationBar: _isEndOfScreen
+            ? GestureDetector(
+                onTap: _submit,
+                child: const Padding(
+                  padding: EdgeInsets.only(
+                    bottom: Sizes.size32,
+                    right: Sizes.size14,
+                    left: Sizes.size14,
+                  ),
+                  child: FormButton(
+                    disabled: false,
+                    text: "등록",
+                  ),
+                ),
+              )
+            : const SizedBox(
+                width: 10,
+                height: 10,
+              ),
       ),
     );
   }
