@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:precious_people/features/memory/views/widgets/memoryCard.dart';
 
 import 'package:precious_people/features/relationship/views/setRelationTimerScreen.dart';
-import 'package:precious_people/features/relationship/views/widgets/relation_card.dart';
 
 import '../../../constants/sizes.dart';
-import '../../memory/views/saveMemoryScreen.dart';
+import 'saveMemoryScreen.dart';
 
-class RelationshipListScreen extends ConsumerStatefulWidget {
-  const RelationshipListScreen({super.key});
+class MemoryListScreen extends ConsumerStatefulWidget {
+  const MemoryListScreen({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _RelationshipListScreenState();
+      _MemoryListScreenState();
 }
 
-class _RelationshipListScreenState
-    extends ConsumerState<RelationshipListScreen> {
+class _MemoryListScreenState extends ConsumerState<MemoryListScreen> {
   void _onLongPressCard() {
     Navigator.push(
       context,
@@ -40,7 +39,7 @@ class _RelationshipListScreenState
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "소중한 사람들",
+          "소중한 추억들",
           style: TextStyle(
             color: Theme.of(context).colorScheme.tertiary,
             fontWeight: FontWeight.w600,
@@ -52,7 +51,7 @@ class _RelationshipListScreenState
           GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 1,
-              childAspectRatio: 10 / 3.3,
+              childAspectRatio: 10 / 5,
             ),
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior
                 .onDrag, // 그리드를 드래그하면 키보드가 자동으로 사라진다.
@@ -61,7 +60,7 @@ class _RelationshipListScreenState
               Sizes.size20,
             ),
             itemBuilder: (context, index) => LayoutBuilder(
-              builder: (context, constraints) => RelationCard(
+              builder: (context, constraints) => MemoryCard(
                 index: index,
                 name: "유진",
               ),

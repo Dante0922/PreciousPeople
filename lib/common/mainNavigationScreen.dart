@@ -5,6 +5,7 @@ import 'package:precious_people/common/widgets/nav_tab.dart';
 
 import '../constants/sizes.dart';
 import '../features/friend/views/friendListScreen.dart';
+import '../features/memory/views/memoryListScreen.dart';
 import '../features/relationship/views/releationshipListScreen.dart';
 import '../features/settings/views/settingsScreen.dart';
 
@@ -56,7 +57,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           ),
           Offstage(
             offstage: _selectedIndex != 2,
-            child: Container(),
+            child: const MemoryListScreen(),
           ),
           Offstage(
             offstage: _selectedIndex != 3,

@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../constants/gaps.dart';
 import '../../../../constants/sizes.dart';
-import '../../../memory/views/saveMemorySelectPartScreen.dart';
+import '../../../memory/views/saveMemoryScreen.dart';
 import '../../../relationship/views/setRelationTimerScreen.dart';
 import '../registerFriendScreen.dart';
 
@@ -54,7 +54,7 @@ class _FriendCardState extends ConsumerState<FriendCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _modifyFriend(context),
+      onLongPress: () => _modifyFriend(context),
       child: Row(
         children: [
           Expanded(

@@ -272,7 +272,7 @@ class _SaveMemorySelectScreenState
                     ),
                   ),
                 ),
-                Gaps.v8,
+                Gaps.v20,
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.1,

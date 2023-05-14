@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:precious_people/constants/gaps.dart';
-import 'package:precious_people/features/memory/views/saveMemorySelectPartScreen.dart';
+import 'package:precious_people/features/memory/views/saveMemoryScreen.dart';
 
 import '../../../../constants/sizes.dart';
 import '../setRelationTimerScreen.dart';
@@ -73,8 +73,8 @@ class _RelationCardState extends ConsumerState<RelationCard> {
         duration: const Duration(seconds: 3),
         content: Stack(
           children: [
-            Row(
-              children: const [
+            const Row(
+              children: [
                 Gaps.h16,
                 Text("타이머 완료"),
               ],
