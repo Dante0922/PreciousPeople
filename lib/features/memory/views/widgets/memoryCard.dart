@@ -1,6 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:precious_people/constants/gaps.dart';
+import 'package:precious_people/features/memory/views/memoryDetailScreen.dart';
 import 'package:precious_people/features/memory/views/saveMemoryScreen.dart';
 
 import '../../../../constants/sizes.dart';
@@ -121,10 +123,14 @@ class _MemoryCardState extends ConsumerState<MemoryCard> {
     });
   }
 
+  void _showMemoryDetail() {
+    context.pushNamed(MemoryDetailScreen.routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: _showMemoryDetail,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
