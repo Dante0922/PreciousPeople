@@ -155,7 +155,9 @@ class _RelationCardState extends ConsumerState<RelationCard> {
               spacing: 5,
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               foregroundColor: Theme.of(context).colorScheme.secondary,
-              onPressed: _setDone, // 스터디 때 질문할 것.
+              onPressed: (_) {
+                _setDone(context);
+              }, // 스터디 때 질문할 것.
               icon: Icons.done,
               label: '완료!',
             ),

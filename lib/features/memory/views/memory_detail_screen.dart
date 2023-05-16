@@ -6,9 +6,11 @@ import '../../../constants/gaps.dart';
 import '../../../constants/sizes.dart';
 
 class MemoryDetailScreen extends ConsumerStatefulWidget {
-  const MemoryDetailScreen({super.key});
-  static String routeUrl = "/memoryDetailScreen";
-  static String routeName = "memoryDetailScreen";
+  static String routeUrl = ":memoryDetailId";
+  static String routeName = "memoryDetail";
+
+  final String memoryDetailId;
+  const MemoryDetailScreen({super.key, required this.memoryDetailId});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>

@@ -9,6 +9,8 @@ import 'saveMemoryScreen.dart';
 
 class MemoryListScreen extends ConsumerStatefulWidget {
   const MemoryListScreen({super.key});
+  static String routeUrl = "/memorylistScreen";
+  static String routeName = "memorylistScreen";
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>

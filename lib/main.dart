@@ -34,7 +34,7 @@ class PreciousPeople extends ConsumerWidget {
       //     // secondary: Color(0xFFFFB7B7),
       //     // secondaryContainer: Color(0xFFFFB7B7),
       //     // tertiary: Color(0xFF25628D),
-      //     // tertiaryContainer: Color(0xFF25628D),
+      //     // tertiaryContainer: Color(0xFF25628D),f
       //     // appBarColor: Color(0xffffdbcf),
       //     // error: Color(0xffb00020),
       //     primary: Color(0xFFBFC88F),

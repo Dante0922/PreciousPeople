@@ -5,6 +5,7 @@ import 'package:precious_people/features/authentication/views/logInChoiceScreen.
 import 'package:precious_people/features/authentication/views/signUpChoiceScreen.dart';
 import 'package:precious_people/features/authentication/views/splashScreen.dart';
 import 'package:precious_people/features/memory/views/memoryDetailScreen.dart';
+import 'package:precious_people/features/memory/views/memoryListScreen.dart';
 import 'package:precious_people/features/memory/views/saveNotificationScreen.dart';
 
 import 'common/mainNavigationScreen.dart';
@@ -53,10 +54,21 @@ final routerProvider = Provider(
           builder: (context, state) => const SaveNotificationScreen(),
         ),
         GoRoute(
-          path: MemoryDetailScreen.routeUrl,
-          name: MemoryDetailScreen.routeName,
-          builder: (context, state) => const MemoryDetailScreen(),
-        )
+            path: MemoryListScreen.routeUrl,
+            name: MemoryListScreen.routeName,
+            builder: (context, state) => const MemoryListScreen(),
+            routes: [
+              GoRoute(
+                path: MemoryDetailScreen.routeUrl,
+                name: MemoryDetailScreen.routeName,
+                builder: (context, state) {
+                  final memoryDetailId = state.params["memoryDetailId"]!;
+                  return MemoryDetailScreen(
+                    memoryDetailId: memoryDetailId,
+                  );
+                },
+              )
+            ])
       ],
     );
   },

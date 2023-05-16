@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:precious_people/constants/gaps.dart';
 import 'package:precious_people/features/memory/views/memoryDetailScreen.dart';
-import 'package:precious_people/features/memory/views/saveMemoryScreen.dart';
 
 import '../../../../constants/sizes.dart';
-import '../../../relationship/views/setRelationTimerScreen.dart';
 import 'emotionBlock.dart';
 
 class MemoryCard extends ConsumerStatefulWidget {
@@ -41,90 +39,11 @@ class _MemoryCardState extends ConsumerState<MemoryCard> {
     return;
   }
 
-  void _saveMemory() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const SaveMemorySelectScreen(),
-      ),
-    );
-  }
-
-  void _setSnooze(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-        content: const Text(
-          "Snooze!",
-        ),
-      ),
-    );
-    setState(() {
-      name = "Snooze";
-    });
-  }
-
-  void _setRerationTimer() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const SetRelationTimer(),
-      ),
-    );
-  }
-
-  void _setDone(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-        showCloseIcon: false,
-        duration: const Duration(seconds: 3),
-        content: Stack(
-          children: [
-            const Row(
-              children: [
-                Gaps.h16,
-                Text("타이머 완료"),
-              ],
-            ),
-            Positioned(
-              right: Sizes.size16,
-              child: GestureDetector(
-                onTap: () {
-                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                  _saveMemory();
-                }, // 스터디 때 질문할 것..
-                child: Container(
-                  width: 80,
-                  height: 18,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(
-                      20,
-                    ),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "추억 등록",
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-    setState(() {
-      name = "done";
-    });
-  }
-
   void _showMemoryDetail() {
-    context.pushNamed(MemoryDetailScreen.routeName);
+    context.pushNamed(
+      MemoryDetailScreen.routeName,
+      params: {"memoryDetailId": "temp"},
+    );
   }
 
   @override

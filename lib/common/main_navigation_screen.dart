@@ -4,10 +4,10 @@ import 'package:go_router/go_router.dart';
 import 'package:precious_people/common/widgets/nav_tab.dart';
 
 import '../constants/sizes.dart';
-import '../features/friend/views/friendListScreen.dart';
-import '../features/memory/views/memoryListScreen.dart';
-import '../features/relationship/views/releationshipListScreen.dart';
-import '../features/settings/views/settingsScreen.dart';
+import '../features/friend/views/friend_list_screen.dart';
+import '../features/memory/views/memory_list_screen.dart';
+import '../features/relationship/views/releationship_list_screen.dart';
+import '../features/settings/views/settings_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   static const routeName = "MainNavigation";
