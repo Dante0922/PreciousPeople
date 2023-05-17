@@ -4,9 +4,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../constants/gaps.dart';
 import '../../../../constants/sizes.dart';
-import '../../../memory/views/saveMemoryScreen.dart';
-import '../../../relationship/views/setRelationTimerScreen.dart';
-import '../registerFriendScreen.dart';
+import '../../../memory/views/save_memory_screen.dart';
+import '../../../relationship/views/set_relation_timer_screen.dart';
+import '../register_friend_screen.dart';
 
 class FriendCard extends ConsumerStatefulWidget {
   const FriendCard({super.key});

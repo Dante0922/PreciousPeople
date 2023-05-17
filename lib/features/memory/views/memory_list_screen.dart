@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:precious_people/features/memory/views/widgets/memoryCard.dart';
+import 'package:precious_people/features/memory/views/widgets/memory_card.dart';
 
-import 'package:precious_people/features/relationship/views/setRelationTimerScreen.dart';
+import 'package:precious_people/features/relationship/views/set_relation_timer_screen.dart';
 
 import '../../../constants/sizes.dart';
-import 'saveMemoryScreen.dart';
+import 'save_memory_screen.dart';
 
 class MemoryListScreen extends ConsumerStatefulWidget {
   const MemoryListScreen({super.key});

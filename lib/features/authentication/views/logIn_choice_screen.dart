@@ -5,7 +5,7 @@ import 'package:precious_people/features/authentication/views/widgets/auth_butto
 
 import '../../../constants/gaps.dart';
 import '../../../constants/sizes.dart';
-import 'emailLoginScreen.dart';
+import 'email_login_screen.dart';
 
 class LogInScreen extends ConsumerWidget {
   static String routeUrl = "/logIn";

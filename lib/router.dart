@@ -1,14 +1,14 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:precious_people/features/authentication/views/introScreen.dart';
-import 'package:precious_people/features/authentication/views/logInChoiceScreen.dart';
-import 'package:precious_people/features/authentication/views/signUpChoiceScreen.dart';
-import 'package:precious_people/features/authentication/views/splashScreen.dart';
-import 'package:precious_people/features/memory/views/memoryDetailScreen.dart';
-import 'package:precious_people/features/memory/views/memoryListScreen.dart';
-import 'package:precious_people/features/memory/views/saveNotificationScreen.dart';
+import 'package:precious_people/features/authentication/views/intro_screen.dart';
+import 'package:precious_people/features/authentication/views/logIn_choice_screen.dart';
+import 'package:precious_people/features/authentication/views/signup_choice_screen.dart';
+import 'package:precious_people/features/authentication/views/splash_screen.dart';
+import 'package:precious_people/features/memory/views/memory_detail_screen.dart';
+import 'package:precious_people/features/memory/views/memory_list_screen.dart';
+import 'package:precious_people/features/memory/views/save_notification_screen.dart';
 
-import 'common/mainNavigationScreen.dart';
+import 'common/main_navigation_screen.dart';
 
 final routerProvider = Provider(
   (ref) {

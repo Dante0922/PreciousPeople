@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:precious_people/constants/gaps.dart';
 import 'package:precious_people/features/authentication/views/widgets/input_field.dart';
-import 'package:precious_people/features/relationship/views/setRelationTimerScreen.dart';
+import 'package:precious_people/features/relationship/views/set_relation_timer_screen.dart';
 
 import '../../../constants/sizes.dart';
 

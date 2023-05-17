@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:precious_people/features/authentication/views/logInChoiceScreen.dart';
-import 'package:precious_people/features/authentication/views/signUpChoiceScreen.dart';
+import 'package:precious_people/features/authentication/views/logIn_choice_screen.dart';
+import 'package:precious_people/features/authentication/views/signup_choice_screen.dart';
 import 'package:precious_people/constants/gaps.dart';
 import 'package:precious_people/constants/sizes.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';

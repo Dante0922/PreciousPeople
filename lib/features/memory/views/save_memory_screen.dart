@@ -5,7 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:precious_people/constants/gaps.dart';
 import 'package:precious_people/constants/sizes.dart';
-import 'package:precious_people/features/memory/views/widgets/emotionButton.dart';
+import 'package:precious_people/features/memory/views/widgets/emotion_button.dart';
 
 import '../../authentication/views/widgets/form_button.dart';
 

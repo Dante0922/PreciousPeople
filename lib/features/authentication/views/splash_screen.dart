@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:precious_people/features/authentication/views/introScreen.dart';
+import 'package:precious_people/features/authentication/views/intro_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   static String routeUrl = "/splash";
@@ -33,12 +33,12 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFAAE2D1),
+    return const Scaffold(
+      backgroundColor: Color(0xFFAAE2D1),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             Text(
               "소중한 사람들",
               style: TextStyle(

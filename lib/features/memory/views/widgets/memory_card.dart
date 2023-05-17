@@ -2,10 +2,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:precious_people/constants/gaps.dart';
-import 'package:precious_people/features/memory/views/memoryDetailScreen.dart';
+import 'package:precious_people/features/memory/views/memory_detail_screen.dart';
 
 import '../../../../constants/sizes.dart';
-import 'emotionBlock.dart';
+import 'emotion_block.dart';
 
 class MemoryCard extends ConsumerStatefulWidget {
   final int index;

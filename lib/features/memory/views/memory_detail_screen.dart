@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:precious_people/features/memory/views/widgets/emotionBlock.dart';
+import 'package:precious_people/features/memory/views/widgets/emotion_block.dart';
 
 import '../../../constants/gaps.dart';
 import '../../../constants/sizes.dart';
