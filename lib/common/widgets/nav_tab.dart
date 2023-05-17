@@ -23,7 +23,6 @@ class NavTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const isDark = false;
     return Expanded(
       child: GestureDetector(
         onTap: () => onTap(),

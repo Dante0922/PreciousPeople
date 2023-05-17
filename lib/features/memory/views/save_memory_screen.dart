@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:precious_people/constants/gaps.dart';
 import 'package:precious_people/constants/sizes.dart';
 import 'package:precious_people/features/memory/views/widgets/emotion_button.dart';
@@ -43,6 +44,9 @@ class _SaveMemorySelectScreenState
   final _emotionList = [];
   bool _isEndOfScreen = false;
   DateTime initialDate = DateTime.now();
+  late XFile? photo;
+  bool hasPhoto = false;
+
   @override
   void initState() {
     _memoryTextEditingController.addListener(() {
@@ -85,6 +89,16 @@ class _SaveMemorySelectScreenState
 
   void _submit() {
     context.goNamed('saveNotification');
+  }
+
+  Future<void> _onPickPhotoPressed() async {
+    photo = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+
+    setState(() {
+      hasPhoto = true;
+    });
   }
 
   @override
@@ -308,10 +322,13 @@ class _SaveMemorySelectScreenState
                         ),
                         Positioned(
                           right: 30,
-                          child: FaIcon(
-                            FontAwesomeIcons.image,
-                            size: 40,
-                            color: Colors.grey.shade500,
+                          child: GestureDetector(
+                            onTap: _onPickPhotoPressed,
+                            child: FaIcon(
+                              FontAwesomeIcons.image,
+                              size: 40,
+                              color: Colors.grey.shade500,
+                            ),
                           ),
                         )
                       ],
