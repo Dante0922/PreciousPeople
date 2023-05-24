@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -6,22 +7,65 @@ import 'package:go_router/go_router.dart';
 import '../../../constants/gaps.dart';
 import '../../../constants/sizes.dart';
 
-class SettingsScreen extends ConsumerStatefulWidget {
-  static String routeUrl = "/settings";
-  static String routeName = "settings";
-  const SettingsScreen({super.key});
+class UserSettingScreen extends ConsumerStatefulWidget {
+  static String routeUrl = "/userSetting";
+  static String routeName = "userSetting";
+  const UserSettingScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => SettingsScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      UserSettingScreenState();
 }
 
-class SettingsScreenState extends ConsumerState<SettingsScreen> {
+class UserSettingScreenState extends ConsumerState<UserSettingScreen> {
   void _onPressedLogOut(BuildContext context) {
-    context.go("/splash");
+    showCupertinoDialog(
+      context: context,
+      builder: (context) => CupertinoAlertDialog(
+        title: const Text("로그아웃 하시겠습니까?"),
+        actions: [
+          CupertinoDialogAction(
+            child: const Text("취소"),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          CupertinoDialogAction(
+            child: const Text("확인"),
+            onPressed: () {
+              context.go("/splash");
+            },
+          ),
+        ],
+      ),
+    );
   }
 
-  void _goToUserSettingScreen(BuildContext context) {
-    context.pushNamed("userSetting");
+  void _onPressedUserInfo(BuildContext context) {
+    context.pushNamed("userInfo");
+  }
+
+  void _onPressedDropOut(BuildContext context) {
+    showCupertinoDialog(
+      context: context,
+      builder: (context) => CupertinoAlertDialog(
+        title: const Text("정말 탈퇴하시겠습니까? \n탈퇴하면 모든 정보가 삭제됩니다."),
+        actions: [
+          CupertinoDialogAction(
+            child: const Text("취소"),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          CupertinoDialogAction(
+            child: const Text("확인"),
+            onPressed: () {
+              context.go("/splash");
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -29,7 +73,7 @@ class SettingsScreenState extends ConsumerState<SettingsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "설정",
+          "마이페이지",
           style: TextStyle(
             color: Theme.of(context).colorScheme.tertiary,
             fontWeight: FontWeight.w600,
@@ -72,24 +116,18 @@ class SettingsScreenState extends ConsumerState<SettingsScreen> {
                     child: Stack(
                       children: [
                         Positioned(
-                          top: 20,
+                          top: 30,
                           left: 30,
-                          bottom: 10,
+                          bottom: 20,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "이건우님",
+                                "기본정보수정",
                                 style: TextStyle(
                                   color: Theme.of(context).colorScheme.tertiary,
                                   fontSize: Sizes.size18,
                                   fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              Text(
-                                "email@gmail.com",
-                                style: TextStyle(
-                                  color: Colors.grey.shade500,
                                 ),
                               ),
                             ],
@@ -100,9 +138,9 @@ class SettingsScreenState extends ConsumerState<SettingsScreen> {
                           top: 30,
                           bottom: 20,
                           child: GestureDetector(
-                            onTap: () => _goToUserSettingScreen(context),
+                            onTap: () => _onPressedUserInfo(context),
                             child: FaIcon(
-                              FontAwesomeIcons.gear,
+                              FontAwesomeIcons.chevronRight,
                               color: Theme.of(context).colorScheme.primary,
                             ),
                           ),
@@ -121,12 +159,12 @@ class SettingsScreenState extends ConsumerState<SettingsScreen> {
                   Row(
                     children: [
                       FaIcon(
-                        FontAwesomeIcons.bullhorn,
+                        FontAwesomeIcons.minus,
                         color: Theme.of(context).primaryColor,
                       ),
                       Gaps.h20,
                       Text(
-                        "공지사항",
+                        "비밀번호 변경",
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.tertiary,
                           fontWeight: FontWeight.w600,
@@ -139,12 +177,12 @@ class SettingsScreenState extends ConsumerState<SettingsScreen> {
                   Row(
                     children: [
                       FaIcon(
-                        FontAwesomeIcons.circleQuestion,
+                        FontAwesomeIcons.minus,
                         color: Theme.of(context).primaryColor,
                       ),
                       Gaps.h20,
                       Text(
-                        "도움말",
+                        "약관 및 이용동의",
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.tertiary,
                           fontWeight: FontWeight.w600,
@@ -154,64 +192,53 @@ class SettingsScreenState extends ConsumerState<SettingsScreen> {
                     ],
                   ),
                   Gaps.v20,
-                  Row(
-                    children: [
-                      FaIcon(
-                        FontAwesomeIcons.envelope,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      Gaps.h20,
-                      Text(
-                        "문의하기",
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          fontWeight: FontWeight.w600,
-                          fontSize: Sizes.size16,
+                  GestureDetector(
+                    onTap: () => _onPressedLogOut(context),
+                    child: Row(
+                      children: [
+                        FaIcon(
+                          FontAwesomeIcons.minus,
+                          color: Theme.of(context).primaryColor,
                         ),
-                      ),
-                    ],
+                        Gaps.h20,
+                        Text(
+                          "로그아웃",
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.tertiary,
+                            fontWeight: FontWeight.w600,
+                            fontSize: Sizes.size16,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   Gaps.v20,
-                  Row(
-                    children: [
-                      FaIcon(
-                        FontAwesomeIcons.heart,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      Gaps.h20,
-                      Text(
-                        "리뷰쓰기",
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          fontWeight: FontWeight.w600,
-                          fontSize: Sizes.size16,
+                  GestureDetector(
+                    onTap: () => _onPressedDropOut(context),
+                    child: Row(
+                      children: [
+                        FaIcon(
+                          FontAwesomeIcons.minus,
+                          color: Theme.of(context).primaryColor,
                         ),
-                      ),
-                    ],
-                  ),
-                  Gaps.v40,
-                  Row(
-                    children: [
-                      FaIcon(
-                        FontAwesomeIcons.palette,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      Gaps.h20,
-                      Text(
-                        "테마변경",
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          fontWeight: FontWeight.w600,
-                          fontSize: Sizes.size16,
+                        Gaps.h20,
+                        Text(
+                          "회원탈퇴",
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.tertiary,
+                            fontWeight: FontWeight.w600,
+                            fontSize: Sizes.size16,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   Gaps.v20,
                 ],
               ),
             ),
             Gaps.v80,
+            Gaps.v60,
             Text(
               "소중한 사람들",
               style: TextStyle(

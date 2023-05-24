@@ -38,7 +38,13 @@ class _SetRelationTimerState extends ConsumerState<SetRelationTimer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("관계 타이머"),
+        title: Text(
+          "관계 타이머",
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.tertiary,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(

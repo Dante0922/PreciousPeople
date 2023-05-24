@@ -4,9 +4,12 @@ import 'package:precious_people/features/authentication/views/intro_screen.dart'
 import 'package:precious_people/features/authentication/views/logIn_choice_screen.dart';
 import 'package:precious_people/features/authentication/views/signup_choice_screen.dart';
 import 'package:precious_people/features/authentication/views/splash_screen.dart';
+import 'package:precious_people/features/authentication/views/user_info_screen.dart';
 import 'package:precious_people/features/memory/views/memory_detail_screen.dart';
 import 'package:precious_people/features/memory/views/memory_list_screen.dart';
 import 'package:precious_people/features/memory/views/save_notification_screen.dart';
+import 'package:precious_people/features/settings/views/settings_screen.dart';
+import 'package:precious_people/features/settings/views/user_setting_screen.dart';
 
 import 'common/main_navigation_screen.dart';
 
@@ -54,21 +57,37 @@ final routerProvider = Provider(
           builder: (context, state) => const SaveNotificationScreen(),
         ),
         GoRoute(
-            path: MemoryListScreen.routeUrl,
-            name: MemoryListScreen.routeName,
-            builder: (context, state) => const MemoryListScreen(),
-            routes: [
-              GoRoute(
-                path: MemoryDetailScreen.routeUrl,
-                name: MemoryDetailScreen.routeName,
-                builder: (context, state) {
-                  final memoryDetailId = state.params["memoryDetailId"]!;
-                  return MemoryDetailScreen(
-                    memoryDetailId: memoryDetailId,
-                  );
-                },
-              )
-            ])
+          path: UserSettingScreen.routeUrl,
+          name: UserSettingScreen.routeName,
+          builder: (context, state) => const UserSettingScreen(),
+        ),
+        GoRoute(
+          path: SettingsScreen.routeUrl,
+          name: SettingsScreen.routeName,
+          builder: (context, state) => const SettingsScreen(),
+        ),
+        GoRoute(
+          path: UserInfoScreen.routeUrl,
+          name: UserInfoScreen.routeName,
+          builder: (context, state) => const UserInfoScreen(),
+        ),
+        GoRoute(
+          path: MemoryListScreen.routeUrl,
+          name: MemoryListScreen.routeName,
+          builder: (context, state) => const MemoryListScreen(),
+          routes: [
+            GoRoute(
+              path: MemoryDetailScreen.routeUrl,
+              name: MemoryDetailScreen.routeName,
+              builder: (context, state) {
+                final memoryDetailId = state.params["memoryDetailId"]!;
+                return MemoryDetailScreen(
+                  memoryDetailId: memoryDetailId,
+                );
+              },
+            )
+          ],
+        ),
       ],
     );
   },

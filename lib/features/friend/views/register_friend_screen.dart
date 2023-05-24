@@ -83,7 +83,13 @@ class _RegisterFriendScreenState extends ConsumerState<RegisterFriendScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("친구 추가"),
+        title: Text(
+          "친구 추가",
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.tertiary,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

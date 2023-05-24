@@ -10,6 +10,8 @@ import '../../../constants/gaps.dart';
 import '../../../constants/sizes.dart';
 
 class UserInfoScreen extends ConsumerStatefulWidget {
+  static String routeUrl = "/userInfo";
+  static String routeName = "userInfo";
   const UserInfoScreen({super.key});
 
   @override

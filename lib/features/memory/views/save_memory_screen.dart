@@ -107,7 +107,13 @@ class _SaveMemorySelectScreenState
       onTap: _onScaffoldTap,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("추억 기록"),
+          title: Text(
+            "추억 기록",
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.tertiary,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
         body: SingleChildScrollView(
           controller: _scrollController,
