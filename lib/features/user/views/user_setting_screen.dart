@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:precious_people/features/authentication/view_models/change_auth_view_model.dart';
+import 'package:precious_people/features/authentication/view_models/login_view_model.dart';
 
 import '../../../constants/gaps.dart';
 import '../../../constants/sizes.dart';
@@ -33,6 +35,7 @@ class UserSettingScreenState extends ConsumerState<UserSettingScreen> {
           CupertinoDialogAction(
             child: const Text("확인"),
             onPressed: () {
+              ref.read(loginProvider.notifier).logOut(context);
               context.go("/splash");
             },
           ),
@@ -60,7 +63,7 @@ class UserSettingScreenState extends ConsumerState<UserSettingScreen> {
           CupertinoDialogAction(
             child: const Text("확인"),
             onPressed: () {
-              context.go("/splash");
+              ref.read(changeAuthProvider.notifier).dropOut(context);
             },
           ),
         ],

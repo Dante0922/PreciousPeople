@@ -7,7 +7,7 @@ import '../constants/sizes.dart';
 import '../features/friend/views/friend_list_screen.dart';
 import '../features/memory/views/memory_list_screen.dart';
 import '../features/relationship/views/releationship_list_screen.dart';
-import '../features/settings/views/settings_screen.dart';
+import '../features/user/views/settings_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   static const routeName = "MainNavigation";

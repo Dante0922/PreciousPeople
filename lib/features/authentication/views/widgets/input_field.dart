@@ -5,22 +5,24 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../../constants/sizes.dart';
 
 class InputField extends ConsumerWidget {
-  final IconData icon;
+  final IconData? icon;
   final void Function() onTapFunction;
   final TextEditingController textEditingController;
   final String? hintText;
+  final bool? enabled;
 
-  const InputField({
-    super.key,
-    required this.textEditingController,
-    required this.onTapFunction,
-    required this.icon,
-    this.hintText,
-  });
+  const InputField(
+      {super.key,
+      required this.textEditingController,
+      required this.onTapFunction,
+      this.icon,
+      this.hintText,
+      this.enabled = true});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return TextField(
+      enabled: enabled,
       controller: textEditingController,
       cursorColor: Theme.of(context).indicatorColor,
       autocorrect: false,

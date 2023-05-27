@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:precious_people/features/authentication/view_models/signup_view_model.dart';
 import 'package:precious_people/features/authentication/views/user_info_screen.dart';
 import 'package:precious_people/features/authentication/views/widgets/form_button.dart';
 import 'package:precious_people/features/authentication/views/widgets/input_field.dart';
@@ -129,6 +130,10 @@ class _EmailScreenState extends ConsumerState<EmailScreen> {
   void _onSubmit() {
     if (_isEmailValid() == false) return;
     if (_isPasswordValid() == false) return;
+    ref.read(signUpForm.notifier).state = {
+      "email": _email,
+      "password": _password,
+    };
     Navigator.push(
       context,
       MaterialPageRoute(

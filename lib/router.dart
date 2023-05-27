@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:precious_people/features/authentication/repos/authentication_repo.dart';
 import 'package:precious_people/features/authentication/views/intro_screen.dart';
 import 'package:precious_people/features/authentication/views/logIn_choice_screen.dart';
 import 'package:precious_people/features/authentication/views/signup_choice_screen.dart';
@@ -8,8 +9,8 @@ import 'package:precious_people/features/authentication/views/user_info_screen.d
 import 'package:precious_people/features/memory/views/memory_detail_screen.dart';
 import 'package:precious_people/features/memory/views/memory_list_screen.dart';
 import 'package:precious_people/features/memory/views/save_notification_screen.dart';
-import 'package:precious_people/features/settings/views/settings_screen.dart';
-import 'package:precious_people/features/settings/views/user_setting_screen.dart';
+import 'package:precious_people/features/user/views/settings_screen.dart';
+import 'package:precious_people/features/user/views/user_setting_screen.dart';
 
 import 'common/main_navigation_screen.dart';
 
@@ -18,6 +19,13 @@ final routerProvider = Provider(
     return GoRouter(
       initialLocation: "/home",
       redirect: (context, state) {
+        final isLoggedIn = ref.read(authRepo).isLoggedIn;
+        if (!isLoggedIn) {
+          if (state.subloc != SignUpScreen.routeUrl &&
+              state.subloc != LogInScreen.routeUrl) {
+            return IntroScreen.routeUrl;
+          }
+        }
         return null;
       },
       routes: [

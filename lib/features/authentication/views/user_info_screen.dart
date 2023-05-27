@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:go_router/go_router.dart';
+import 'package:precious_people/features/authentication/repos/authentication_repo.dart';
+import 'package:precious_people/features/authentication/view_models/signup_view_model.dart';
 import 'package:precious_people/features/authentication/views/widgets/form_button.dart';
 import 'package:precious_people/features/authentication/views/widgets/input_field.dart';
+import 'package:precious_people/features/user/view_models/users_view_model.dart';
 
 import '../../../constants/gaps.dart';
 import '../../../constants/sizes.dart';
@@ -24,8 +26,10 @@ class _UserInfoScreenState extends ConsumerState<UserInfoScreen> {
   final TextEditingController _birthdayController = TextEditingController();
   String _name = "";
   String _email = "";
+  String _birthday = "";
   bool _showPicker = false;
   DateTime initialDate = DateTime.now();
+  bool emailSignUp = false;
 
   @override
   void initState() {
@@ -40,9 +44,21 @@ class _UserInfoScreenState extends ConsumerState<UserInfoScreen> {
         _name = _nameController.text;
       });
     });
+    _birthdayController.addListener(() {
+      setState(() {
+        _birthday = _birthdayController.text;
+      });
+    });
     DateTime twelveYearsAgo = DateTime(initialDate.year -
         12); //DateTime() 파라미터로 DateTimeSample.year -12 를 하면 12년 전 DateTimeSample의 날짜를 반환한다.
     _setTextFieldDate(twelveYearsAgo);
+
+    final state = ref.read(signUpForm.notifier).state;
+    if (state["email"] != null) {
+      _emailController.text = state["email"]!;
+      emailSignUp = true;
+    }
+    setData();
   }
 
   @override
@@ -50,6 +66,27 @@ class _UserInfoScreenState extends ConsumerState<UserInfoScreen> {
     _emailController.dispose();
     _nameController.dispose();
     super.dispose();
+  }
+
+  // 로그인 상태에서 기본정보 탭에 들어왔을 때, 기존에 가입된 정보를 불러와서 표시한다.
+  Future<void> setData() async {
+    final authrepo = ref.read(authRepo);
+
+    if (authrepo.isLoggedIn) {
+      final userProfile = await ref
+          .read(usersProvider.notifier)
+          .findProfile(authrepo.user!.uid);
+      setState(() {
+        _nameController.text = userProfile['name'];
+        _emailController.text = userProfile['email'];
+        _birthdayController.text = userProfile['birthday'];
+      });
+    }
+  }
+
+  bool isLoggedin() {
+    final authrepo = ref.read(authRepo);
+    return authrepo.isLoggedIn;
   }
 
   void _onClearNameTap() {
@@ -79,7 +116,24 @@ class _UserInfoScreenState extends ConsumerState<UserInfoScreen> {
 
   void _onSubmit() {
     if (_isEmailValid() == false) return;
-    context.go("/home");
+
+    if (isLoggedin()) {
+      Map<String, dynamic> data = {
+        "name": _name,
+        "email": _email,
+        "birthday": _birthday,
+      };
+      ref.read(usersProvider.notifier).updateProfile(context, data);
+    } else {
+      final state = ref.read(signUpForm.notifier).state;
+      ref.read(signUpForm.notifier).state = {
+        ...state,
+        "name": _name,
+        "email": _email,
+        "birthday": _birthdayController.text,
+      };
+      ref.read(signUpProvider.notifier).signUp(context);
+    }
   }
 
   bool? _isEmailValid() {
@@ -138,11 +192,17 @@ class _UserInfoScreenState extends ConsumerState<UserInfoScreen> {
                 ),
               ),
               Gaps.v12,
-              InputField(
-                textEditingController: _emailController,
-                onTapFunction: _onClearEmailTap,
-                icon: FontAwesomeIcons.solidCircleXmark,
-              ),
+              emailSignUp
+                  ? InputField(
+                      textEditingController: _emailController,
+                      onTapFunction: _onClearEmailTap,
+                      enabled: false,
+                    )
+                  : InputField(
+                      textEditingController: _emailController,
+                      onTapFunction: _onClearEmailTap,
+                      icon: FontAwesomeIcons.solidCircleXmark,
+                    ),
               Gaps.v24,
               const Text(
                 "생년월일",
@@ -155,6 +215,9 @@ class _UserInfoScreenState extends ConsumerState<UserInfoScreen> {
               GestureDetector(
                 onTap: _showDatePicker,
                 child: TextField(
+                  style: const TextStyle(
+                    color: Colors.black,
+                  ),
                   controller:
                       _birthdayController, // 이 텍스트필드는 이 컨트롤러를 통해 제어된다. 하단의 데이트픽커를 통해 Controller.value가 바뀌면 텍스트필드의 값이 바뀐다.
                   cursorColor: Theme.of(context).primaryColor,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:go_router/go_router.dart';
+import 'package:precious_people/features/authentication/view_models/login_view_model.dart';
 import 'package:precious_people/features/authentication/views/widgets/form_button.dart';
 import 'package:precious_people/features/authentication/views/widgets/input_field.dart';
 
@@ -9,6 +9,8 @@ import '../../../constants/gaps.dart';
 import '../../../constants/sizes.dart';
 
 class EmailLoginScreen extends ConsumerStatefulWidget {
+  static String routeUrl = "/emailLogin";
+  static String routeName = "emailLogin";
   const EmailLoginScreen({super.key});
 
   @override
@@ -79,7 +81,12 @@ class _EmailLoginScreenState extends ConsumerState<EmailLoginScreen> {
   void _onSubmit() {
     if (_isEmailValid() == false) return;
     if (_isPasswordValid() == false) return;
-    context.go("/home");
+
+    ref.read(loginProvider.notifier).login(
+          _email,
+          _password,
+          context,
+        );
   }
 
   @override

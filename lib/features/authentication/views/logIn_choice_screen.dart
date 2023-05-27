@@ -45,7 +45,7 @@ class LogInScreen extends ConsumerWidget {
               Gaps.v10,
               Center(
                 child: Text(
-                  "소사와 함께 당신의 소중한 인맥을 유지하세요.",
+                  "당신의 소중한 관계을 유지하세요.",
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         color: Colors.grey,
                         fontWeight: FontWeight.bold,

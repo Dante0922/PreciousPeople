@@ -1,16 +1,21 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:precious_people/firebase_options.dart';
 import 'package:precious_people/router.dart';
 
 /*  메모:
   릴리즈 설치: flutter run -d dante --release
   homebrew 말 안 들을 때: eval $(/opt/homebrew/bin/brew shellenv) 
 */
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const ProviderScope(child: PreciousPeople()));
 }
 
@@ -34,7 +39,7 @@ class PreciousPeople extends ConsumerWidget {
       //     // secondary: Color(0xFFFFB7B7),
       //     // secondaryContainer: Color(0xFFFFB7B7),
       //     // tertiary: Color(0xFF25628D),
-      //     // tertiaryContainer: Color(0xFF25628D),f
+      //     // tertiaryContainer: Color(0xFF25628D),
       //     // appBarColor: Color(0xffffdbcf),
       //     // error: Color(0xffb00020),
       //     primary: Color(0xFFBFC88F),
