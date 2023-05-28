@@ -40,6 +40,14 @@ class AuthenticationRepository {
   Future<void> changePassword(String newPassword) async {
     await _firebaseAuth.currentUser!.updatePassword(newPassword);
   }
+
+  Future<void> verifyPassword(String password) async {
+    final credential = EmailAuthProvider.credential(
+      email: _firebaseAuth.currentUser!.email!,
+      password: password,
+    );
+    await _firebaseAuth.currentUser!.reauthenticateWithCredential(credential);
+  }
 }
 
 final authRepo = Provider((ref) => AuthenticationRepository());

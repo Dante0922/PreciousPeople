@@ -71,6 +71,10 @@ class UserSettingScreenState extends ConsumerState<UserSettingScreen> {
     );
   }
 
+  void _onPressedChangePassword() {
+    context.pushNamed("changePassword");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -159,22 +163,25 @@ class UserSettingScreenState extends ConsumerState<UserSettingScreen> {
               padding: const EdgeInsets.all(10.0),
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      FaIcon(
-                        FontAwesomeIcons.minus,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      Gaps.h20,
-                      Text(
-                        "비밀번호 변경",
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          fontWeight: FontWeight.w600,
-                          fontSize: Sizes.size16,
+                  GestureDetector(
+                    onTap: _onPressedChangePassword,
+                    child: Row(
+                      children: [
+                        FaIcon(
+                          FontAwesomeIcons.minus,
+                          color: Theme.of(context).primaryColor,
                         ),
-                      ),
-                    ],
+                        Gaps.h20,
+                        Text(
+                          "비밀번호 변경",
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.tertiary,
+                            fontWeight: FontWeight.w600,
+                            fontSize: Sizes.size16,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   Gaps.v20,
                   Row(

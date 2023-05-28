@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:precious_people/features/authentication/repos/authentication_repo.dart';
+import 'package:precious_people/features/authentication/views/change_password_screen.dart';
 import 'package:precious_people/features/authentication/views/intro_screen.dart';
 import 'package:precious_people/features/authentication/views/logIn_choice_screen.dart';
 import 'package:precious_people/features/authentication/views/signup_choice_screen.dart';
@@ -78,6 +79,11 @@ final routerProvider = Provider(
           path: UserInfoScreen.routeUrl,
           name: UserInfoScreen.routeName,
           builder: (context, state) => const UserInfoScreen(),
+        ),
+        GoRoute(
+          path: ChangePasswordScreen.routeUrl,
+          name: ChangePasswordScreen.routeName,
+          builder: (context, state) => const ChangePasswordScreen(),
         ),
         GoRoute(
           path: MemoryListScreen.routeUrl,

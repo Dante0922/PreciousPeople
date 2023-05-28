@@ -26,6 +26,14 @@ class SignUpViewmodel extends AsyncNotifier<void> {
     if (state.hasError) {
       showFirebaseErrorSnack(context, state.error);
     } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).colorScheme.secondary,
+          content: const Text(
+            "회원탈퇴가 정상적으로 처리되었습니다.",
+          ),
+        ),
+      );
       context.go("/home");
     }
   }
@@ -47,6 +55,19 @@ class SignUpViewmodel extends AsyncNotifier<void> {
         ),
       );
       context.go("/home");
+    }
+  }
+
+  Future<bool> verifyPassword(BuildContext context, String password) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      await _authRepo.verifyPassword(password);
+    });
+    if (state.hasError) {
+      showFirebaseErrorSnack(context, state.error);
+      return false;
+    } else {
+      return true;
     }
   }
 }
