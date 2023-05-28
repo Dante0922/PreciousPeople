@@ -13,10 +13,10 @@ class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => SettingsScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _SettingsScreenState();
 }
 
-class SettingsScreenState extends ConsumerState<SettingsScreen> {
+class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   void _onPressedLogOut(BuildContext context) {
     context.go("/splash");
   }

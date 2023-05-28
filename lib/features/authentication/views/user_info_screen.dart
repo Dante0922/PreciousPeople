@@ -105,6 +105,7 @@ class _UserInfoScreenState extends ConsumerState<UserInfoScreen> {
   }
 
   void _showDatePicker() {
+    FocusScope.of(context).unfocus();
     setState(() {
       _showPicker = !_showPicker;
     });
@@ -267,7 +268,7 @@ class _UserInfoScreenState extends ConsumerState<UserInfoScreen> {
               onTap: _onSubmit,
               child: FormButton(
                 disabled: !_isValid(),
-                text: "Next",
+                text: "완료",
               ),
             ),
           ],

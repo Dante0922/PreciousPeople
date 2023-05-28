@@ -64,7 +64,15 @@ class UsersViewModel extends AsyncNotifier<UserProfileModel> {
     if (user == null) {
       throw Exception("User not found");
     }
-    await _usersRepository.updateUser(user.uid, data);
+
+    /* data 강제 수정.. 나중에 수정해야함.. */
+    data['uid'] = data['uid'] ?? state.value!.uid;
+    data['email'] = data['email'] ?? state.value!.email;
+    data['name'] = data['name'] ?? state.value!.name;
+    data['birthday'] = data['birthday'] ?? state.value!.birthday;
+
+    await _usersRepository.updateUser(state.value!.uid, data);
+    state = AsyncValue.data(UserProfileModel.fromJson(data));
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
