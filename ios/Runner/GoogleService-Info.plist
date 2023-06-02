@@ -2,18 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CLIENT_ID</key>
+	<string>385046326132-s2jetr2si4co7t2bqfjo9hdbm74m8ebp.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.385046326132-s2jetr2si4co7t2bqfjo9hdbm74m8ebp</string>
 	<key>API_KEY</key>
-	<string>AIzaSyARonXaUfZ17Viq1sBdThbLO1YlggxHO9w</string>
+	<string>AIzaSyBdHv1q4VM06VIXdDo5349UFvqmjkKbXY0</string>
 	<key>GCM_SENDER_ID</key>
-	<string>842137829173</string>
+	<string>385046326132</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.nice.preciousPeople</string>
 	<key>PROJECT_ID</key>
-	<string>preciouspeople-dcf8d</string>
+	<string>preciouspeople-56f0c</string>
 	<key>STORAGE_BUCKET</key>
-	<string>preciouspeople-dcf8d.appspot.com</string>
+	<string>preciouspeople-56f0c.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:842137829173:ios:d789a2600cb117e479567c</string>
+	<string>1:385046326132:ios:0021761d498be1c9821a21</string>
 </dict>
 </plist>

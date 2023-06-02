@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:precious_people/features/authentication/view_models/social_auth_view_model.dart';
 import 'package:precious_people/features/authentication/views/widgets/auth_button.dart';
 
 import '../../../constants/gaps.dart';
@@ -20,6 +21,11 @@ class LogInScreen extends ConsumerWidget {
       ),
     );
   }
+
+  void _onGoogleTap(BuildContext context , WidgetRef ref){
+    ref.read(socialAuthProvider.notifier).googleSignIn(context);
+  }
+
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -61,18 +67,13 @@ class LogInScreen extends ConsumerWidget {
                   ),
                   onTapFunction: _onEmailTap),
               Gaps.v10,
-              FractionallySizedBox(
-                widthFactor: 1,
-                child: Container(
-                  height: 60,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(
-                          "assets/images/kakao_login_large_wide.png"),
-                    ),
+              AuthButton(
+                  text: "Google 로그인",
+                  icon: const FaIcon(
+                    FontAwesomeIcons.google,
                   ),
-                ),
-              ),
+                  onTapFunction: (_)=>_onGoogleTap(context, ref)),
+
               Gaps.v10,
             ],
           ),

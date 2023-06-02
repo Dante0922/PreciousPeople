@@ -63,7 +63,7 @@ class _RelationshipListScreenState
             itemBuilder: (context, index) => LayoutBuilder(
               builder: (context, constraints) => RelationCard(
                 index: index,
-                name: "유진",
+                name: "홍길동",
               ),
             ),
           ),

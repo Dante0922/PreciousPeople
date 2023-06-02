@@ -47,13 +47,13 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDGLIdfI5B_627tUrfjId2UftoKopGeJHY',
-    appId: '1:385046326132:web:defc3d3700fab183821a21',
-    messagingSenderId: '385046326132',
-    projectId: 'preciouspeople-56f0c',
-    authDomain: 'preciouspeople-56f0c.firebaseapp.com',
-    storageBucket: 'preciouspeople-56f0c.appspot.com',
-    measurementId: 'G-1ZEQSPV9S0',
+      apiKey: "AIzaSyDGLIdfI5B_627tUrfjId2UftoKopGeJHY",
+      authDomain: "preciouspeople-56f0c.firebaseapp.com",
+      projectId: "preciouspeople-56f0c",
+      storageBucket: "preciouspeople-56f0c.appspot.com",
+      messagingSenderId: "385046326132",
+      appId: "1:385046326132:web:defc3d3700fab183821a21",
+      measurementId: "G-1ZEQSPV9S0"
   );
 
   static const FirebaseOptions android = FirebaseOptions(
@@ -70,6 +70,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '385046326132',
     projectId: 'preciouspeople-56f0c',
     storageBucket: 'preciouspeople-56f0c.appspot.com',
+    androidClientId: '385046326132-d39aoaf7uveeg4fqa87hvimvfcpp1igv.apps.googleusercontent.com',
+    iosClientId: '385046326132-s2jetr2si4co7t2bqfjo9hdbm74m8ebp.apps.googleusercontent.com',
     iosBundleId: 'com.nice.preciousPeople',
   );
 }

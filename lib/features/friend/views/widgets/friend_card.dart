@@ -90,7 +90,7 @@ class _FriendCardState extends ConsumerState<FriendCard> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "유진",
+                            "김철수",
                             style: TextStyle(
                               fontSize: Sizes.size20,
                               fontWeight: FontWeight.w600,

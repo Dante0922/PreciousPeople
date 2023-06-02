@@ -125,7 +125,6 @@ class _RegisterFriendScreenState extends ConsumerState<RegisterFriendScreen> {
             InputField(
               textEditingController: _nameEditingController,
               onTapFunction: () {},
-              icon: FontAwesomeIcons.solidCircleXmark,
               hintText: "친구의 이름을 입력해주세요.",
             ),
             Gaps.v20,
@@ -144,7 +143,6 @@ class _RegisterFriendScreenState extends ConsumerState<RegisterFriendScreen> {
             InputField(
               textEditingController: _momentEditingController,
               onTapFunction: () {},
-              icon: FontAwesomeIcons.solidCircleXmark,
               hintText: "친구와 첫 만남은?",
             ),
             Gaps.v20,
@@ -173,7 +171,6 @@ class _RegisterFriendScreenState extends ConsumerState<RegisterFriendScreen> {
             InputField(
               textEditingController: _contactEditingController,
               onTapFunction: () {},
-              icon: FontAwesomeIcons.solidCircleXmark,
               hintText: "연락처(선택)",
             ),
             Gaps.v20,
