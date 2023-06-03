@@ -64,6 +64,7 @@ class UsersViewModel extends AsyncNotifier<UserProfileModel> {
     if (user == null) {
       throw Exception("User not found");
     }
+    print(user.uid);
 
     /* data 강제 수정.. 나중에 수정해야함.. */
     data['uid'] = data['uid'] ?? state.value!.uid;

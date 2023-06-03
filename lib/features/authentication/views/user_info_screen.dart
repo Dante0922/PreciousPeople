@@ -77,9 +77,9 @@ class _UserInfoScreenState extends ConsumerState<UserInfoScreen> {
           .read(usersProvider.notifier)
           .findProfile(authrepo.user!.uid);
       setState(() {
-        _nameController.text = userProfile['name'];
-        _emailController.text = userProfile['email'];
-        _birthdayController.text = userProfile['birthday'];
+        _nameController.text = userProfile['name'] ?? "";
+        _emailController.text = userProfile['email'] ?? "" ;
+        _birthdayController.text = userProfile['birthday'] ?? "";
       });
     }
   }
