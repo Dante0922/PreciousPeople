@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:precious_people/constants/sizes.dart';
+import 'package:precious_people/features/friend/view_models/friend_view_model.dart';
 import 'package:precious_people/features/friend/views/register_friend_screen.dart';
 import 'package:precious_people/features/friend/views/widgets/friend_card.dart';
 
@@ -30,7 +31,7 @@ class _FriendListScreenState extends ConsumerState<FriendListScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const RegisterFriendScreen(),
+        builder: (context) =>  RegisterFriendScreen(),
       ),
     );
   }
@@ -61,16 +62,26 @@ class _FriendListScreenState extends ConsumerState<FriendListScreen> {
           ),
         ],
       ),
-      body: ListView.separated(
-        padding: const EdgeInsets.all(
-          Sizes.size20,
-        ),
-        itemBuilder: (context, index) {
-          return const FriendCard();
-        },
-        itemCount: 20,
-        separatorBuilder: (context, index) => Gaps.v12,
-      ),
+      body: ref.watch(friendViewModel).when(
+          error: (error, stackTrace) => Center(
+                child: Text(error.toString()),
+              ),
+          loading: () => Center(
+                child: CircularProgressIndicator(),
+              ),
+          data: (data) {
+            return ListView.separated(
+              padding: EdgeInsets.all(
+                Sizes.size20,
+              ),
+              itemBuilder: (context, index) {
+                final friend = data[index];
+                return FriendCard(friend: friend);
+              },
+              itemCount: data.length,
+              separatorBuilder: (context, index) => Gaps.v12,
+            );
+          }),
     );
   }
 }

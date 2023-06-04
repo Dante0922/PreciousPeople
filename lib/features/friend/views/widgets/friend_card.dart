@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:precious_people/features/friend/models/friend_profile_model.dart';
 
 import '../../../../constants/gaps.dart';
 import '../../../../constants/sizes.dart';
@@ -9,7 +10,9 @@ import '../../../relationship/views/set_relation_timer_screen.dart';
 import '../register_friend_screen.dart';
 
 class FriendCard extends ConsumerStatefulWidget {
-  const FriendCard({super.key});
+  final FriendProfileModel friend;
+
+  const FriendCard({super.key, required this.friend});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _FriendCardState();
@@ -17,6 +20,14 @@ class FriendCard extends ConsumerStatefulWidget {
 
 class _FriendCardState extends ConsumerState<FriendCard> {
   bool isFavorite = false;
+  String _year = "";
+  String _month = "";
+
+  @override
+  void initState() {
+    _calculateDate();
+    super.initState();
+  }
 
   void _saveMemory(BuildContext context) {
     Navigator.push(
@@ -40,7 +51,7 @@ class _FriendCardState extends ConsumerState<FriendCard> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const RegisterFriendScreen(),
+        builder: (context) =>  RegisterFriendScreen(friend: widget.friend),
       ),
     );
   }
@@ -49,6 +60,15 @@ class _FriendCardState extends ConsumerState<FriendCard> {
     setState(() {
       isFavorite = !isFavorite;
     });
+  }
+
+  void _calculateDate() {
+    final DateTime now = DateTime.now();
+    final test = DateTime.parse(widget.friend.friendaversery).difference(now);
+    final year = test.inDays ~/ 365 * -1;
+    final month = (test.inDays % 365) ~/ 30;
+    _year = year.toString();
+    _month = month.toString();
   }
 
   @override
@@ -90,7 +110,7 @@ class _FriendCardState extends ConsumerState<FriendCard> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "김철수",
+                            widget.friend.name,
                             style: TextStyle(
                               fontSize: Sizes.size20,
                               fontWeight: FontWeight.w600,
@@ -98,7 +118,7 @@ class _FriendCardState extends ConsumerState<FriendCard> {
                             ),
                           ),
                           Text(
-                            "알고 지낸 지 3년",
+                            "소중한 관계 $_year년",
                             style: TextStyle(
                               color: Colors.grey.shade500,
                               fontSize: Sizes.size12,
@@ -135,17 +155,7 @@ class _FriendCardState extends ConsumerState<FriendCard> {
                             color: Theme.of(context).colorScheme.secondary,
                           ),
                         ),
-                        Gaps.h20,
-                        GestureDetector(
-                          onTap: _onTapFavorite,
-                          child: FaIcon(
-                            isFavorite // 추후 타이머가 등록여부에 따라 아이콘 바꿔줄 것
-                                ? FontAwesomeIcons.solidStar
-                                : FontAwesomeIcons.star,
-                            size: Sizes.size24,
-                            color: Theme.of(context).colorScheme.secondary,
-                          ),
-                        ),
+                        Gaps.h10,
                       ],
                     ),
                   ),

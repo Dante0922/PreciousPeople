@@ -171,6 +171,7 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
                 textEditingController: _currentPasswordController,
                 onTapFunction: _onClearEmailTap,
                 icon: FontAwesomeIcons.solidCircleXmark,
+
               ),
               Gaps.v24,
               const Text(

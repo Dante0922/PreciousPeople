@@ -3,13 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:precious_people/constants/gaps.dart';
+import 'package:precious_people/features/authentication/repos/authentication_repo.dart';
 import 'package:precious_people/features/authentication/views/widgets/input_field.dart';
+import 'package:precious_people/features/friend/models/friend_profile_model.dart';
+import 'package:precious_people/features/friend/view_models/friend_view_model.dart';
 import 'package:precious_people/features/relationship/views/set_relation_timer_screen.dart';
 
 import '../../../constants/sizes.dart';
 
 class RegisterFriendScreen extends ConsumerStatefulWidget {
-  const RegisterFriendScreen({super.key});
+  FriendProfileModel? friend;
+
+  RegisterFriendScreen({super.key, this.friend});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -24,8 +29,9 @@ class _RegisterFriendScreenState extends ConsumerState<RegisterFriendScreen> {
       TextEditingController();
 
   DateTime initialDate = DateTime.now();
+  DateTime maximumDate = DateTime.now();
   String _name = "";
-  String _momentDate = "";
+  String _friendaversery = "";
   String _contact = "";
 
   @override
@@ -38,7 +44,7 @@ class _RegisterFriendScreenState extends ConsumerState<RegisterFriendScreen> {
     });
     _momentEditingController.addListener(() {
       setState(() {
-        _momentDate = _momentEditingController.text;
+        _friendaversery = _momentEditingController.text;
       });
     });
     _contactEditingController.addListener(() {
@@ -46,6 +52,12 @@ class _RegisterFriendScreenState extends ConsumerState<RegisterFriendScreen> {
         _contact = _contactEditingController.text;
       });
     });
+    if (widget.friend != null) {
+      _nameEditingController.text = widget.friend!.name;
+      _momentEditingController.text = widget.friend!.friendaversery;
+      _contactEditingController.text = widget.friend!.contact;
+      initialDate = DateTime.parse(widget.friend!.friendaversery);
+    }
   }
 
   @override
@@ -61,8 +73,9 @@ class _RegisterFriendScreenState extends ConsumerState<RegisterFriendScreen> {
     _momentEditingController.value = TextEditingValue(text: textDate);
   }
 
-  void _submit() {
-    if (_name.isEmpty || _momentDate.isEmpty) {
+  void _submit(BuildContext context) async {
+    final uid = ref.read(authRepo).user!.uid;
+    if (_name.isEmpty || _friendaversery.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           showCloseIcon: false,
@@ -71,12 +84,14 @@ class _RegisterFriendScreenState extends ConsumerState<RegisterFriendScreen> {
       );
       return;
     }
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const SetRelationTimer(),
-      ),
-    );
+    if (widget.friend == null) {
+      ref
+          .read(friendViewModel.notifier)
+          .createFriend(_name, _friendaversery, _contact, context);
+    } else {
+      ref.read(friendViewModel.notifier).updateFriend(
+          widget.friend!, _name, _friendaversery, _contact, context);
+    }
   }
 
   @override
@@ -151,7 +166,7 @@ class _RegisterFriendScreenState extends ConsumerState<RegisterFriendScreen> {
               child: CupertinoDatePicker(
                 onDateTimeChanged: _setTextFieldDate,
                 mode: CupertinoDatePickerMode.date,
-                maximumDate: initialDate,
+                maximumDate: maximumDate,
                 initialDateTime: initialDate,
               ),
             ),
@@ -180,7 +195,9 @@ class _RegisterFriendScreenState extends ConsumerState<RegisterFriendScreen> {
                 horizontal: MediaQuery.of(context).size.width * 0.43,
                 vertical: Sizes.size20,
               ),
-              onPressed: _submit,
+              onPressed: () {
+                _submit(context);
+              },
               child: const Text("등록"),
             ),
           ],
