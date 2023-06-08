@@ -51,7 +51,7 @@ class _FriendCardState extends ConsumerState<FriendCard> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>  RegisterFriendScreen(friend: widget.friend),
+        builder: (context) => RegisterFriendScreen(friend: widget.friend),
       ),
     );
   }
@@ -96,15 +96,26 @@ class _FriendCardState extends ConsumerState<FriendCard> {
                   Row(
                     children: [
                       Gaps.h10,
-                      CircleAvatar(
-                        radius: Sizes.size28,
-                        backgroundColor: Theme.of(context).colorScheme.primary,
-                        child: const FaIcon(
-                          FontAwesomeIcons.user,
-                          color: Colors.white,
-                          size: Sizes.size28,
-                        ),
-                      ),
+                      widget.friend.hasAvatar
+                          ? CircleAvatar(
+                              radius: Sizes.size28,
+                              // 추후 이미지 로드 기능 변경할 것..
+                              foregroundImage: NetworkImage(
+                                "https://firebasestorage.googleapis.com/v0/b/preciouspeople-56f0c.appspot.com/o/avatars%2F${widget.friend!.friendId}?alt=media&token=5f3c2e29-5ac8-43ac-bc5f-b1a196362a85",
+                                //  "https://firebasestorage.googleapis.com/v0/b/preciouspeople-56f0c.appspot.com/o/avatars%2Fi9DeN0sRN5DTLJqJy4xB?alt=media",
+
+                              ),
+                            )
+                          : CircleAvatar(
+                              radius: Sizes.size28,
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.primary,
+                              child: const FaIcon(
+                                FontAwesomeIcons.user,
+                                color: Colors.white,
+                                size: Sizes.size28,
+                              ),
+                            ),
                       Gaps.h16,
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

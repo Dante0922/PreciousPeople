@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,8 +25,13 @@ class FriendViewModel extends AsyncNotifier<List<FriendProfileModel>> {
     return _list;
   }
 
-  Future<void> createFriend(String name, String friendaversery, String contact,
-      BuildContext context) async {
+  Future<void> createFriend(
+    String name,
+    String friendaversery,
+    String contact,
+    bool hasAvatar,
+    BuildContext context, File? avatarFile
+  ) async {
     final uid = _auth.user!.uid;
     state = const AsyncValue.loading();
     final profile = FriendProfileModel(
@@ -34,12 +40,13 @@ class FriendViewModel extends AsyncNotifier<List<FriendProfileModel>> {
         name: name,
         friendaversery: friendaversery,
         contact: contact,
-        thumbnailUrl: "",
+        hasAvatar: hasAvatar ?? false,
         imageUrl: "",
         isLiked: false);
     state = await AsyncValue.guard(() async {
-      await _friendRepository.createFriend(profile, uid);
-      _list = [profile, ..._list];
+      await _friendRepository.createFriend(profile, uid, avatarFile);
+      //_list = [profile, ..._list];
+      _list = await _fetchFriends(uid);
       return _list;
     });
     if (state.hasError) {
@@ -57,8 +64,14 @@ class FriendViewModel extends AsyncNotifier<List<FriendProfileModel>> {
     }
   }
 
-  Future<void> updateFriend(FriendProfileModel friend, String name,
-      String friendaversery, String contact, BuildContext context) async {
+  Future<void> updateFriend(
+      FriendProfileModel friend,
+      String name,
+      String friendaversery,
+      String contact,
+      bool hasAvatar,
+      BuildContext context,
+      File? avatarFile) async {
     final uid = _auth.user!.uid;
     state = const AsyncValue.loading();
     final profile = FriendProfileModel(
@@ -67,11 +80,11 @@ class FriendViewModel extends AsyncNotifier<List<FriendProfileModel>> {
         name: name ?? friend.name,
         friendaversery: friendaversery ?? friend.friendaversery,
         contact: contact ?? friend.contact,
-        thumbnailUrl: friend.thumbnailUrl,
+        hasAvatar: hasAvatar ?? friend.hasAvatar,
         imageUrl: friend.imageUrl,
         isLiked: false);
     state = await AsyncValue.guard(() async {
-      await _friendRepository.updateFriend(friend.friendId, profile.toJson());
+      await _friendRepository.updateFriend(friend.friendId, profile.toJson(), avatarFile);
       _list = await _fetchFriends(uid);
       return _list;
     });
@@ -103,6 +116,9 @@ class FriendViewModel extends AsyncNotifier<List<FriendProfileModel>> {
     );
     return friends.toList();
   }
+
+
+
 }
 
 final friendViewModel =

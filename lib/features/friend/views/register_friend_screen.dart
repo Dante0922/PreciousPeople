@@ -1,11 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:precious_people/constants/gaps.dart';
 import 'package:precious_people/features/authentication/repos/authentication_repo.dart';
 import 'package:precious_people/features/authentication/views/widgets/input_field.dart';
 import 'package:precious_people/features/friend/models/friend_profile_model.dart';
+import 'package:precious_people/features/friend/view_models/avatar_view_model.dart';
 import 'package:precious_people/features/friend/view_models/friend_view_model.dart';
 import 'package:precious_people/features/relationship/views/set_relation_timer_screen.dart';
 
@@ -33,6 +37,8 @@ class _RegisterFriendScreenState extends ConsumerState<RegisterFriendScreen> {
   String _name = "";
   String _friendaversery = "";
   String _contact = "";
+  XFile? _image;
+  bool hasAvatar = false;
 
   @override
   void initState() {
@@ -57,7 +63,9 @@ class _RegisterFriendScreenState extends ConsumerState<RegisterFriendScreen> {
       _momentEditingController.text = widget.friend!.friendaversery;
       _contactEditingController.text = widget.friend!.contact;
       initialDate = DateTime.parse(widget.friend!.friendaversery);
+      hasAvatar = widget.friend!.hasAvatar;
     }
+
   }
 
   @override
@@ -74,6 +82,7 @@ class _RegisterFriendScreenState extends ConsumerState<RegisterFriendScreen> {
   }
 
   void _submit(BuildContext context) async {
+    File? file;
     final uid = ref.read(authRepo).user!.uid;
     if (_name.isEmpty || _friendaversery.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -84,13 +93,28 @@ class _RegisterFriendScreenState extends ConsumerState<RegisterFriendScreen> {
       );
       return;
     }
+    if (_image != null) {
+       file = File(_image!.path);
+      hasAvatar = true;
+    }
+
     if (widget.friend == null) {
       ref
           .read(friendViewModel.notifier)
-          .createFriend(_name, _friendaversery, _contact, context);
+          .createFriend(_name, _friendaversery, _contact, hasAvatar, context, file);
     } else {
       ref.read(friendViewModel.notifier).updateFriend(
-          widget.friend!, _name, _friendaversery, _contact, context);
+          widget.friend!, _name, _friendaversery, _contact, hasAvatar, context, file);
+    }
+  }
+
+  void _imagePicker() async {
+    final xfile = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    if (xfile != null) {
+      setState(() {
+        _image = xfile;
+      });
     }
   }
 
@@ -112,16 +136,30 @@ class _RegisterFriendScreenState extends ConsumerState<RegisterFriendScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Gaps.v32,
-            Center(
-              child: CircleAvatar(
-                // onTap - 사진 변경 기능 추가할 것.
-                radius: Sizes.size72,
-                backgroundColor: Theme.of(context).primaryColor,
-                child: const FaIcon(
-                  FontAwesomeIcons.user,
-                  color: Colors.amber,
-                  size: Sizes.size72,
-                ),
+            GestureDetector(
+              onTap: _imagePicker,
+              child: Center(
+                child: hasAvatar
+                    ? CircleAvatar(
+                        radius: Sizes.size72,
+                        // 추후 이미지 로드 기능 변경할 것..
+                        foregroundImage: NetworkImage(
+                            "https://firebasestorage.googleapis.com/v0/b/preciouspeople-56f0c.appspot.com/o/avatars%2F${widget.friend!.friendId}?alt=media&haha=${DateTime.now().toString()}"))
+                    : _image == null
+                        ? CircleAvatar(
+                            // onTap - 사진 변경 기능 추가할 것.
+                            radius: Sizes.size72,
+                            backgroundColor: Theme.of(context).primaryColor,
+                            child: FaIcon(
+                              FontAwesomeIcons.user,
+                              color: Theme.of(context).colorScheme.tertiary,
+                              size: Sizes.size72,
+                            ),
+                          )
+                        : CircleAvatar(
+                            radius: Sizes.size72,
+                            foregroundImage: FileImage(File(_image!.path)),
+                          ),
               ),
             ),
             Gaps.v20,

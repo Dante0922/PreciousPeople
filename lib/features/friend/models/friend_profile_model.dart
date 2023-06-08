@@ -4,7 +4,7 @@ class FriendProfileModel {
   final String name;
   final String friendaversery;
   final String contact;
-  final String thumbnailUrl;
+  final bool hasAvatar;
   final String imageUrl;
   final bool isLiked;
 
@@ -14,7 +14,7 @@ class FriendProfileModel {
     required this.friendId,
     required this.friendaversery,
     required this.contact,
-    required this.thumbnailUrl,
+    required this.hasAvatar,
     required this.imageUrl,
     required this.isLiked,
   });
@@ -26,7 +26,7 @@ class FriendProfileModel {
       'name': name,
       'friendaversery': friendaversery,
       'contact': contact,
-      'thumbnailUrl': thumbnailUrl,
+      'hasAvatar': hasAvatar,
       'imageUrl': imageUrl,
       'isLiked': isLiked,
     };
@@ -39,7 +39,29 @@ class FriendProfileModel {
         name = json['name'],
         friendaversery = json['friendaversery'],
         contact = json['contact'],
-        thumbnailUrl = json['thumbnailUrl'],
+        hasAvatar = json['hasAvatar'] ?? false,
         imageUrl = json['imageUrl'],
-        isLiked = json['isLiked'];
+        isLiked = json['isLiked'] ?? false;
+
+  FriendProfileModel copyWith({
+    String? registerUserId,
+    String? friendId,
+    String? name,
+    String? friendaversery,
+    String? contact,
+    bool? hasAvatar,
+    String? imageUrl,
+    bool? isLiked,
+  }) {
+    return FriendProfileModel(
+      registerUserId: registerUserId ?? this.registerUserId,
+      friendId: friendId ?? this.friendId,
+      name: name ?? this.name,
+      friendaversery: friendaversery ?? this.friendaversery,
+      contact: contact ?? this.contact,
+      hasAvatar: hasAvatar ?? this.hasAvatar,
+      imageUrl: imageUrl ?? this.imageUrl,
+      isLiked: isLiked ?? this.isLiked,
+    );
+  }
 }

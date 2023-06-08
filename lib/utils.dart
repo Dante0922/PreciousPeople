@@ -5,6 +5,7 @@ void showFirebaseErrorSnack(
   BuildContext context,
   Object? error,
 ) {
+  print(error);
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       showCloseIcon: true,
