@@ -5,9 +5,10 @@ import 'package:precious_people/constants/sizes.dart';
 import 'package:precious_people/features/friend/view_models/friend_view_model.dart';
 import 'package:precious_people/features/friend/views/register_friend_screen.dart';
 import 'package:precious_people/features/friend/views/widgets/friend_card.dart';
+import 'package:precious_people/features/relation/views/set_relation_timer_screen.dart';
 
 import '../../../constants/gaps.dart';
-import '../../relationship/views/set_relation_timer_screen.dart';
+
 
 class FriendListScreen extends ConsumerStatefulWidget {
   const FriendListScreen({super.key});

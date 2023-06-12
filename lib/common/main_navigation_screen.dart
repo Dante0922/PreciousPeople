@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:precious_people/common/widgets/nav_tab.dart';
+import 'package:precious_people/features/relation/views/releation_list_screen.dart';
+
 
 import '../constants/sizes.dart';
 import '../features/friend/views/friend_list_screen.dart';
 import '../features/memory/views/memory_list_screen.dart';
-import '../features/relationship/views/releationship_list_screen.dart';
 import '../features/user/views/settings_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
@@ -49,7 +50,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           Offstage(
             //Offstage는 네비게이터의 여러 탭을 한번에 구동시킨다. 이와 같이 처리해야 다른 탭에 갔다가 와도 캐시가 유지된다.
             offstage: _selectedIndex != 0,
-            child: const RelationshipListScreen(),
+            child: const RelationListScreen(),
           ),
           Offstage(
             offstage: _selectedIndex != 1,

@@ -116,9 +116,6 @@ class FriendViewModel extends AsyncNotifier<List<FriendProfileModel>> {
     );
     return friends.toList();
   }
-
-
-
 }
 
 final friendViewModel =

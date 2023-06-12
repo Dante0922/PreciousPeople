@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:precious_people/features/relationship/views/set_relation_timer_screen.dart';
-import 'package:precious_people/features/relationship/views/widgets/relation_card.dart';
+
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:precious_people/features/relation/views/set_relation_timer_screen.dart';
+import 'package:precious_people/features/relation/views/widgets/relation_card.dart';
+
+
 
 import '../../../constants/sizes.dart';
 import '../../memory/views/save_memory_screen.dart';
 
-class RelationshipListScreen extends ConsumerStatefulWidget {
-  const RelationshipListScreen({super.key});
+class RelationListScreen extends ConsumerStatefulWidget {
+  const RelationListScreen({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _RelationshipListScreenState();
+      _RelationListScreenState();
 }
 
-class _RelationshipListScreenState
-    extends ConsumerState<RelationshipListScreen> {
+class _RelationListScreenState
+    extends ConsumerState<RelationListScreen> {
   void _onLongPressCard() {
     Navigator.push(
       context,

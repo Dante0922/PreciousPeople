@@ -11,7 +11,6 @@ import 'package:precious_people/features/authentication/views/widgets/input_fiel
 import 'package:precious_people/features/friend/models/friend_profile_model.dart';
 import 'package:precious_people/features/friend/view_models/avatar_view_model.dart';
 import 'package:precious_people/features/friend/view_models/friend_view_model.dart';
-import 'package:precious_people/features/relationship/views/set_relation_timer_screen.dart';
 
 import '../../../constants/sizes.dart';
 

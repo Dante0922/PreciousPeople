@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:precious_people/features/friend/models/friend_profile_model.dart';
+import 'package:precious_people/features/relation/views/set_relation_timer_screen.dart';
 
 import '../../../../constants/gaps.dart';
 import '../../../../constants/sizes.dart';
 import '../../../memory/views/save_memory_screen.dart';
-import '../../../relationship/views/set_relation_timer_screen.dart';
+
 import '../register_friend_screen.dart';
 
 class FriendCard extends ConsumerStatefulWidget {
