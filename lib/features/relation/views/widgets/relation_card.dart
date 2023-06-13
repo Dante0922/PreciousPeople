@@ -2,7 +2,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:precious_people/constants/gaps.dart';
+import 'package:precious_people/features/friend/view_models/friend_view_model.dart';
 import 'package:precious_people/features/memory/views/save_memory_screen.dart';
+import 'package:precious_people/features/relation/models/relation_model.dart';
 
 import '../../../../constants/sizes.dart';
 import '../set_relation_timer_screen.dart';
@@ -10,7 +12,13 @@ import '../set_relation_timer_screen.dart';
 class RelationCard extends ConsumerStatefulWidget {
   final int index;
   final String name;
-  const RelationCard({super.key, required this.index, required this.name});
+  final RelationModel relation;
+
+  const RelationCard(
+      {super.key,
+      required this.index,
+      required this.name,
+      required this.relation});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _RelationCardState();
@@ -56,11 +64,11 @@ class _RelationCardState extends ConsumerState<RelationCard> {
     });
   }
 
-  void _setRerationTimer() {
+  void _setRerationTimer(String friendId) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const SetRelationTimer(),
+        builder: (context) => SetRelationTimer(friendId: friendId),
       ),
     );
   }
@@ -117,8 +125,9 @@ class _RelationCardState extends ConsumerState<RelationCard> {
 
   @override
   Widget build(BuildContext context) {
+    final friend = ref.read(friendViewModel.notifier).findFriend(widget.relation.friendId);
     return GestureDetector(
-      onTap: _setRerationTimer,
+      onTap: () => _setRerationTimer(widget.relation.friendId),
       child: Slidable(
         key: UniqueKey(),
         startActionPane: ActionPane(
@@ -157,7 +166,8 @@ class _RelationCardState extends ConsumerState<RelationCard> {
               foregroundColor: Theme.of(context).colorScheme.secondary,
               onPressed: (_) {
                 _setDone(context);
-              }, // 스터디 때 질문할 것.
+              },
+              // 스터디 때 질문할 것.
               icon: Icons.done,
               label: '완료!',
             ),

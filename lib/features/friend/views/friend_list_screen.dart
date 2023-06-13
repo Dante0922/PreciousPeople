@@ -19,14 +19,7 @@ class FriendListScreen extends ConsumerStatefulWidget {
 }
 
 class _FriendListScreenState extends ConsumerState<FriendListScreen> {
-  void _onTapStar(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const SetRelationTimer(),
-      ),
-    );
-  }
+
 
   void _registerFriend() {
     Navigator.push(
@@ -71,6 +64,11 @@ class _FriendListScreenState extends ConsumerState<FriendListScreen> {
                 child: CircularProgressIndicator(),
               ),
           data: (data) {
+            if (data.isEmpty) {
+              return Center(
+                child: Text("소중한 사람을 등록하세요."),
+              );
+            }
             return ListView.separated(
               padding: EdgeInsets.all(
                 Sizes.size20,

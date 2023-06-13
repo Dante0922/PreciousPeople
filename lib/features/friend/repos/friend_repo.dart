@@ -37,6 +37,11 @@ class FriendRepository {
     await fileRef.putFile(file);
   }
 
+  Future<FriendProfileModel> findFriend(String friendId) async {
+    final doc = await _db.collection("friends").doc(friendId).get();
+    return FriendProfileModel.fromJson(doc.data()!);
+  }
+
 
 }
 

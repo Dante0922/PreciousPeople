@@ -39,11 +39,11 @@ class _FriendCardState extends ConsumerState<FriendCard> {
     );
   }
 
-  void _setRerationTimer(BuildContext context) {
+  void _setRerationTimer(BuildContext context, String friendId) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const SetRelationTimer(),
+        builder: (context) => SetRelationTimer(friendId: friendId),
       ),
     );
   }
@@ -158,7 +158,7 @@ class _FriendCardState extends ConsumerState<FriendCard> {
                         ),
                         Gaps.h20,
                         GestureDetector(
-                          onTap: () => _setRerationTimer(context),
+                          onTap: () => _setRerationTimer(context, widget.friend.friendId),
                           child: FaIcon(
                             true // 추후 타이머가 등록여부에 따라 아이콘 바꿔줄 것
                                 ? FontAwesomeIcons.clock

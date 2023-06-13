@@ -116,6 +116,10 @@ class FriendViewModel extends AsyncNotifier<List<FriendProfileModel>> {
     );
     return friends.toList();
   }
+  Future<FriendProfileModel> findFriend(String friendId) async {
+    return await _friendRepository.findFriend(friendId);
+  }
+
 }
 
 final friendViewModel =

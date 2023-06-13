@@ -28,15 +28,6 @@ class _MemoryListScreenState extends ConsumerState<MemoryListScreen> {
     );
   }
 
-  void _setRerationTimer() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const SetRelationTimer(),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

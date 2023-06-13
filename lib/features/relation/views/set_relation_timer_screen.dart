@@ -5,9 +5,13 @@ import 'package:go_router/go_router.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:precious_people/constants/gaps.dart';
 import 'package:precious_people/constants/sizes.dart';
+import 'package:precious_people/features/friend/view_models/friend_view_model.dart';
+import 'package:precious_people/features/relation/models/relation_history_model.dart';
+import 'package:precious_people/features/relation/view_models/relation_view_model.dart';
 
 class SetRelationTimer extends ConsumerStatefulWidget {
-  const SetRelationTimer({super.key});
+  final String friendId;
+  const SetRelationTimer({super.key, required this.friendId});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -17,6 +21,9 @@ class SetRelationTimer extends ConsumerStatefulWidget {
 class _SetRelationTimerState extends ConsumerState<SetRelationTimer> {
   int _currentValue = 1;
   String _interval = "일";
+  String _name = "";
+  String _period = "";
+  List<RelationHistory> _history = [];
 
   void _numValueChanged(value) {
     setState(() {
@@ -29,13 +36,78 @@ class _SetRelationTimerState extends ConsumerState<SetRelationTimer> {
       _interval = interval;
     });
   }
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      findInformation();
+    });
+  }
+
+  void findInformation() async{
+    final friend = await ref.read(friendViewModel.notifier).findFriend(widget.friendId);
+    setState(() {
+      _name = friend.name;
+    });
+
+    final relation = await ref.read(relationViewModel.notifier).findRelation(widget.friendId);
+    if(relation == null) {
+      return;
+    }
+    final interval = calculatePeriod(relation!.period);
+    final remainingDays = calculateRemainingDays(relation!.period);
+    setState(() {
+      _interval = interval;
+      _currentValue = remainingDays;
+    });
+  }
+
+  String calculatePeriod(String period) {
+    int periodValue = int.tryParse(period) ?? 0; // 입력된 문자열을 정수로 변환
+    if (periodValue >= 91) {
+      return "월";
+    } else if (periodValue >= 15) {
+      return "주";
+    } else if (periodValue >= 1) {
+      return "일";
+    } else {
+      return "일";
+    }
+  }
+
+  int calculateRemainingDays(String period) {
+    int periodValue = int.tryParse(period) ?? 0; // 입력된 문자열을 정수로 변환
+    if (periodValue >= 31) {
+      return periodValue ~/ 31;
+    } else if (periodValue >= 7) {
+      return periodValue ~/ 7;
+    } else if (periodValue >= 1) {
+      return periodValue;
+    } else {
+      return periodValue;
+    }
+  }
+
+  int calculatePeriodValue(String interval, int value) {
+    if (interval == "월") {
+      return value * 31;
+    } else if (interval == "주") {
+      return value * 7;
+    } else if (interval == "일") {
+      return value;
+    } else {
+      return value;
+    }
+  }
+
 
   void _submit() {
-    context.pushReplacement('/home');
+    String period = calculatePeriodValue(_interval, _currentValue).toString();
+    ref.read(relationViewModel.notifier).createRelation(context, widget.friendId, period);
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -72,8 +144,8 @@ class _SetRelationTimerState extends ConsumerState<SetRelationTimer> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    const Text(
-                      "홍길동",
+                     Text(
+                      _name,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: Sizes.size44,
@@ -148,9 +220,10 @@ class _SetRelationTimerState extends ConsumerState<SetRelationTimer> {
                               child: const Text(
                                 "일",
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: Sizes.size20,
-                                    fontWeight: FontWeight.w600),
+                                  color: Colors.white,
+                                  fontSize: Sizes.size20,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
                             Gaps.h10,

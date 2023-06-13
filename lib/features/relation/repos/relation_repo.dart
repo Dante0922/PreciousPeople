@@ -28,5 +28,12 @@ Future<void> createRelation(String friendId, RelationModel model) async {
   Future<QuerySnapshot<Map<String, dynamic>>> fetchRelations(String userId) async {
     return _db.collection("relations").where('registerUserId', isEqualTo: userId).get();
   }
+  Future<RelationModel?> findRelation(String friendId) async {
+    final snapshot = await _db.collection("relations").doc(friendId).get();
+    if (!snapshot.exists) {
+      return null;
+    }
+    return RelationModel.fromJson(snapshot.data()!);
+  }
 }
 final relationRepo = Provider((ref) => RelationshipRepository());
