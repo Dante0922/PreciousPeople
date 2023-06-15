@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:precious_people/features/relation/repos/relation_repo.dart';
 import 'package:precious_people/features/relation/view_models/relation_view_model.dart';
-import 'package:precious_people/features/relation/views/set_relation_timer_screen.dart';
 import 'package:precious_people/features/relation/views/widgets/relation_card.dart';
-
 import '../../../constants/sizes.dart';
 import '../../memory/views/save_memory_screen.dart';
 
 class RelationListScreen extends ConsumerStatefulWidget {
+
   const RelationListScreen({super.key});
 
   @override
@@ -18,6 +15,7 @@ class RelationListScreen extends ConsumerStatefulWidget {
 }
 
 class _RelationListScreenState extends ConsumerState<RelationListScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   void _onLongPressCard() {
     Navigator.push(
       context,
@@ -30,6 +28,7 @@ class _RelationListScreenState extends ConsumerState<RelationListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
         appBar: AppBar(
           title: Text(
             "소중한 사람들",

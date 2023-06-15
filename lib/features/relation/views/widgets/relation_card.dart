@@ -1,10 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:precious_people/constants/gaps.dart';
 import 'package:precious_people/features/friend/view_models/friend_view_model.dart';
 import 'package:precious_people/features/memory/views/save_memory_screen.dart';
 import 'package:precious_people/features/relation/models/relation_model.dart';
+import 'package:precious_people/features/relation/view_models/relation_view_model.dart';
 
 import '../../../../constants/sizes.dart';
 import '../set_relation_timer_screen.dart';
@@ -26,10 +29,15 @@ class RelationCard extends ConsumerStatefulWidget {
 
 class _RelationCardState extends ConsumerState<RelationCard> {
   late String name = widget.name;
+  bool _hasAvatar = false;
+  String _remainingDays = "";
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      findInformation();
+    });
   }
 
   @override
@@ -37,8 +45,18 @@ class _RelationCardState extends ConsumerState<RelationCard> {
     super.dispose();
   }
 
-  void doNothing(BuildContext context) {
-    return;
+  void findInformation() async{
+    final friend = await ref.read(friendViewModel.notifier).findFriend(widget.relation.friendId);
+    setState(() {
+      _hasAvatar = friend.hasAvatar;
+    });
+
+    String nowDate = DateTime.now().toString();
+    String endDate = widget.relation.endDate.toString();
+
+    setState(() {
+      _remainingDays = (DateTime.parse(endDate).difference(DateTime.parse(nowDate)).inDays).toString();
+    });
   }
 
   void _saveMemory() {
@@ -51,6 +69,9 @@ class _RelationCardState extends ConsumerState<RelationCard> {
   }
 
   void _setSnooze(BuildContext context) {
+
+
+
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Theme.of(context).colorScheme.secondary,
@@ -59,9 +80,7 @@ class _RelationCardState extends ConsumerState<RelationCard> {
         ),
       ),
     );
-    setState(() {
-      name = "Snooze";
-    });
+    ref.read(relationViewModel.notifier).snoozeRelation(context, widget.relation.friendId, widget.relation);
   }
 
   void _setRerationTimer(String friendId) {
@@ -72,6 +91,8 @@ class _RelationCardState extends ConsumerState<RelationCard> {
       ),
     );
   }
+
+
 
   void _setDone(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -125,7 +146,8 @@ class _RelationCardState extends ConsumerState<RelationCard> {
 
   @override
   Widget build(BuildContext context) {
-    final friend = ref.read(friendViewModel.notifier).findFriend(widget.relation.friendId);
+    final friend =
+        ref.read(friendViewModel.notifier).findFriend(widget.relation.friendId);
     return GestureDetector(
       onTap: () => _setRerationTimer(widget.relation.friendId),
       child: Slidable(
@@ -198,7 +220,7 @@ class _RelationCardState extends ConsumerState<RelationCard> {
                       offset: Offset(3, 4),
                     ),
                   ],
-                ), //Color(0xffACEDD9),
+                ),
                 child: Stack(
                   children: [
                     Positioned(
@@ -207,10 +229,35 @@ class _RelationCardState extends ConsumerState<RelationCard> {
                       bottom: 10,
                       child: Row(
                         children: [
-                          const CircleAvatar(
-                            radius: Sizes.size32,
-                            foregroundImage:
-                                AssetImage("assets/images/Cream.jpeg"),
+                          _hasAvatar ?
+                          CachedNetworkImage(
+                            imageUrl:
+                                "https://firebasestorage.googleapis.com/v0/b/preciouspeople-56f0c.appspot.com/o/avatars%2F${widget.relation!.friendId}?alt=media&token=5f3c2e29-5ac8-43ac-bc5f-b1a196362a85",
+                            imageBuilder: (context, imageProvider) => Container(
+                              width: 56.0,
+                              height: 56.0,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    image: imageProvider, fit: BoxFit.cover),
+                              ),
+                            ),
+                            placeholder: (context, url) =>
+                                const CircularProgressIndicator(),
+                            errorWidget: (context, url, error) => const FaIcon(
+                              FontAwesomeIcons.user,
+                              color: Colors.white,
+                              size: Sizes.size28,
+                            ),
+                          ) : CircleAvatar(
+                            radius: Sizes.size28,
+                            backgroundColor:
+                            Theme.of(context).colorScheme.primary,
+                            child: const FaIcon(
+                              FontAwesomeIcons.user,
+                              color: Colors.white,
+                              size: Sizes.size28,
+                            ),
                           ),
                           Gaps.h20,
                           Column(
@@ -241,7 +288,7 @@ class _RelationCardState extends ConsumerState<RelationCard> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Timer: 오늘",
+                            "기다림: ${_remainingDays}일",
                             style: TextStyle(
                               color: Theme.of(context)
                                   .colorScheme

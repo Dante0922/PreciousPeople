@@ -39,13 +39,12 @@ class RelationViewModel extends AsyncNotifier<List<RelationModel>> {
     final uid = _auth.user!.uid;
     final friend = await _friendRepository.findFriend(friendId);
 
-
     state = const AsyncValue.loading();
     final relation = RelationModel(registerUserId: uid,
         friendId: friendId,
         name: friend.name,
         startDate: DateTime.now().toString(),
-        endDate: DateTime.now().toString() + period,
+        endDate: DateTime.now().add(Duration(days: int.parse(period))).toString(),
         period: period,
         lastContact: "");
     state = await AsyncValue.guard(() async {
@@ -68,5 +67,33 @@ class RelationViewModel extends AsyncNotifier<List<RelationModel>> {
       context.pushReplacement("/home");
     }
   }
+
+  Future<void> snoozeRelation(BuildContext context, String friendId, RelationModel relation) async {
+    final uid = _auth.user!.uid;
+    state = const AsyncValue.loading();
+    relation!.copyWith(endDate: DateTime.now().add(const Duration(days: 7)).toString());
+
+    state = await AsyncValue.guard(() async {
+      await _relationRepository.updateRelation(friendId, relation);
+      _list = await _fetchRelations(uid);
+      return _list;
+    });
+    print(state);
+    if (state.hasError) {
+      showFirebaseErrorSnack(context, state.error);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).colorScheme.secondary,
+          content: const Text(
+            "등록 완료!",
+          ),
+        ),
+      );
+      context.pushReplacement("/home");
+    }
+  }
+
+
 }
 final relationViewModel = AsyncNotifierProvider<RelationViewModel, List<RelationModel>>(() => RelationViewModel());

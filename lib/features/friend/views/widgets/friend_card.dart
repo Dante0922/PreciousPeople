@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -98,13 +99,26 @@ class _FriendCardState extends ConsumerState<FriendCard> {
                     children: [
                       Gaps.h10,
                       widget.friend.hasAvatar
-                          ? CircleAvatar(
-                              radius: Sizes.size28,
-                              // 추후 이미지 로드 기능 변경할 것..
-                              foregroundImage: NetworkImage(
-                                "https://firebasestorage.googleapis.com/v0/b/preciouspeople-56f0c.appspot.com/o/avatars%2F${widget.friend!.friendId}?alt=media&token=5f3c2e29-5ac8-43ac-bc5f-b1a196362a85",
-                                //  "https://firebasestorage.googleapis.com/v0/b/preciouspeople-56f0c.appspot.com/o/avatars%2Fi9DeN0sRN5DTLJqJy4xB?alt=media",
-
+                          ? CachedNetworkImage(
+                              imageUrl:
+                                  "https://firebasestorage.googleapis.com/v0/b/preciouspeople-56f0c.appspot.com/o/avatars%2F${widget.friend/**/!.friendId}?alt=media&token=5f3c2e29-5ac8-43ac-bc5f-b1a196362a85",
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
+                                width: 56.0,
+                                height: 56.0,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      image: imageProvider, fit: BoxFit.cover),
+                                ),
+                              ),
+                              placeholder: (context, url) =>
+                                  CircularProgressIndicator(),
+                              errorWidget: (context, url, error) =>
+                                  const FaIcon(
+                                FontAwesomeIcons.user,
+                                color: Colors.white,
+                                size: Sizes.size28,
                               ),
                             )
                           : CircleAvatar(
@@ -158,7 +172,8 @@ class _FriendCardState extends ConsumerState<FriendCard> {
                         ),
                         Gaps.h20,
                         GestureDetector(
-                          onTap: () => _setRerationTimer(context, widget.friend.friendId),
+                          onTap: () => _setRerationTimer(
+                              context, widget.friend.friendId),
                           child: FaIcon(
                             true // 추후 타이머가 등록여부에 따라 아이콘 바꿔줄 것
                                 ? FontAwesomeIcons.clock
