@@ -5,37 +5,38 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:precious_people/constants/gaps.dart';
 import 'package:precious_people/features/friend/view_models/friend_view_model.dart';
-import 'package:precious_people/features/memory/views/save_memory_screen.dart';
 import 'package:precious_people/features/relation/models/relation_model.dart';
-import 'package:precious_people/features/relation/view_models/relation_view_model.dart';
+
 
 import '../../../../constants/sizes.dart';
 import '../set_relation_timer_screen.dart';
 
 class RelationCard extends ConsumerStatefulWidget {
   final int index;
-  final String name;
   final RelationModel relation;
+  final Function setSnoozeFunction;
+  final Function setDoneFunction;
 
   const RelationCard(
       {super.key,
       required this.index,
-      required this.name,
-      required this.relation});
+      required this.relation,
+        required this.setSnoozeFunction,
+      required this.setDoneFunction});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _RelationCardState();
 }
 
 class _RelationCardState extends ConsumerState<RelationCard> {
-  late String name = widget.name;
+  late String name = widget.relation.name;
   bool _hasAvatar = false;
   String _remainingDays = "";
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_){
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       findInformation();
     });
   }
@@ -45,8 +46,10 @@ class _RelationCardState extends ConsumerState<RelationCard> {
     super.dispose();
   }
 
-  void findInformation() async{
-    final friend = await ref.read(friendViewModel.notifier).findFriend(widget.relation.friendId);
+  void findInformation() async {
+    final friend = await ref
+        .read(friendViewModel.notifier)
+        .findFriend(widget.relation.friendId);
     setState(() {
       _hasAvatar = friend.hasAvatar;
     });
@@ -55,35 +58,13 @@ class _RelationCardState extends ConsumerState<RelationCard> {
     String endDate = widget.relation.endDate.toString();
 
     setState(() {
-      _remainingDays = (DateTime.parse(endDate).difference(DateTime.parse(nowDate)).inDays).toString();
+      _remainingDays =
+          (DateTime.parse(endDate).difference(DateTime.parse(nowDate)).inDays)
+              .toString();
     });
   }
 
-  void _saveMemory() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const SaveMemorySelectScreen(),
-      ),
-    );
-  }
-
-  void _setSnooze(BuildContext context) {
-
-
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-        content: const Text(
-          "Snooze!",
-        ),
-      ),
-    );
-    ref.read(relationViewModel.notifier).snoozeRelation(context, widget.relation.friendId, widget.relation);
-  }
-
-  void _setRerationTimer(String friendId) {
+  void _setRelationTimer(String friendId) {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -92,103 +73,48 @@ class _RelationCardState extends ConsumerState<RelationCard> {
     );
   }
 
-
-
-  void _setDone(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-        showCloseIcon: false,
-        duration: const Duration(seconds: 3),
-        content: Stack(
-          children: [
-            const Row(
-              children: [
-                Gaps.h16,
-                Text("타이머 완료"),
-              ],
-            ),
-            Positioned(
-              right: Sizes.size16,
-              child: GestureDetector(
-                onTap: () {
-                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                  _saveMemory();
-                }, // 스터디 때 질문할 것..
-                child: Container(
-                  width: 80,
-                  height: 18,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(
-                      20,
-                    ),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "추억 등록",
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-    setState(() {
-      name = "done";
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final friend =
         ref.read(friendViewModel.notifier).findFriend(widget.relation.friendId);
     return GestureDetector(
-      onTap: () => _setRerationTimer(widget.relation.friendId),
+      key: GlobalKey(),
+      onTap: () => _setRelationTimer(widget.relation.friendId),
       child: Slidable(
         key: UniqueKey(),
         startActionPane: ActionPane(
-          key: UniqueKey(),
+          key: GlobalKey(),
           extentRatio: 0.25,
           motion: const ScrollMotion(),
           dismissible: DismissiblePane(
-            onDismissed: () {
-              _setSnooze(context);
-            },
+            onDismissed: ()=> widget.setSnoozeFunction(),
           ),
           children: [
             SlidableAction(
-              key: UniqueKey(),
+              key: GlobalKey(),
               spacing: 5,
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               foregroundColor: Theme.of(context).colorScheme.secondary,
-              onPressed: _setSnooze,
+              onPressed: (_)=> widget.setSnoozeFunction(),
               icon: Icons.snooze,
               label: '스누즈',
             ),
           ],
         ),
         endActionPane: ActionPane(
-          key: UniqueKey(),
+          key: GlobalKey(),
           extentRatio: 0.25,
           dismissible: DismissiblePane(
-            onDismissed: () => _setDone(context),
+            onDismissed: () => widget.setDoneFunction(),
           ),
           motion: const ScrollMotion(),
           children: [
             SlidableAction(
-              key: UniqueKey(),
+              key: GlobalKey(),
               spacing: 5,
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               foregroundColor: Theme.of(context).colorScheme.secondary,
-              onPressed: (_) {
-                _setDone(context);
-              },
+              onPressed: (_) => widget.setDoneFunction(),
               // 스터디 때 질문할 것.
               icon: Icons.done,
               label: '완료!',
@@ -229,36 +155,40 @@ class _RelationCardState extends ConsumerState<RelationCard> {
                       bottom: 10,
                       child: Row(
                         children: [
-                          _hasAvatar ?
-                          CachedNetworkImage(
-                            imageUrl:
-                                "https://firebasestorage.googleapis.com/v0/b/preciouspeople-56f0c.appspot.com/o/avatars%2F${widget.relation!.friendId}?alt=media&token=5f3c2e29-5ac8-43ac-bc5f-b1a196362a85",
-                            imageBuilder: (context, imageProvider) => Container(
-                              width: 56.0,
-                              height: 56.0,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                    image: imageProvider, fit: BoxFit.cover),
-                              ),
-                            ),
-                            placeholder: (context, url) =>
-                                const CircularProgressIndicator(),
-                            errorWidget: (context, url, error) => const FaIcon(
-                              FontAwesomeIcons.user,
-                              color: Colors.white,
-                              size: Sizes.size28,
-                            ),
-                          ) : CircleAvatar(
-                            radius: Sizes.size28,
-                            backgroundColor:
-                            Theme.of(context).colorScheme.primary,
-                            child: const FaIcon(
-                              FontAwesomeIcons.user,
-                              color: Colors.white,
-                              size: Sizes.size28,
-                            ),
-                          ),
+                          _hasAvatar
+                              ? CachedNetworkImage(
+                                  imageUrl:
+                                      "https://firebasestorage.googleapis.com/v0/b/preciouspeople-56f0c.appspot.com/o/avatars%2F${widget.relation!.friendId}?alt=media&token=5f3c2e29-5ac8-43ac-bc5f-b1a196362a85",
+                                  imageBuilder: (context, imageProvider) =>
+                                      Container(
+                                    width: 56.0,
+                                    height: 56.0,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.cover),
+                                    ),
+                                  ),
+                                  placeholder: (context, url) =>
+                                      const CircularProgressIndicator(),
+                                  errorWidget: (context, url, error) =>
+                                      const FaIcon(
+                                    FontAwesomeIcons.user,
+                                    color: Colors.white,
+                                    size: Sizes.size28,
+                                  ),
+                                )
+                              : CircleAvatar(
+                                  radius: Sizes.size28,
+                                  backgroundColor:
+                                      Theme.of(context).colorScheme.primary,
+                                  child: const FaIcon(
+                                    FontAwesomeIcons.user,
+                                    color: Colors.white,
+                                    size: Sizes.size28,
+                                  ),
+                                ),
                           Gaps.h20,
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
