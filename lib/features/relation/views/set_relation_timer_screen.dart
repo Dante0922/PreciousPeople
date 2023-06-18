@@ -9,6 +9,8 @@ import 'package:precious_people/features/friend/view_models/friend_view_model.da
 import 'package:precious_people/features/relation/models/relation_history_model.dart';
 import 'package:precious_people/features/relation/view_models/relation_view_model.dart';
 
+import '../view_models/relation_history_view_model.dart';
+
 class SetRelationTimer extends ConsumerStatefulWidget {
   final String friendId;
   const SetRelationTimer({super.key, required this.friendId});
@@ -23,7 +25,7 @@ class _SetRelationTimerState extends ConsumerState<SetRelationTimer> {
   String _interval = "일";
   String _name = "";
   String _period = "";
-  List<RelationHistory> _history = [];
+  List<RelationHistoryModel> _histories = [];
 
   void _numValueChanged(value) {
     setState(() {
@@ -54,6 +56,9 @@ class _SetRelationTimerState extends ConsumerState<SetRelationTimer> {
     if(relation == null) {
       return;
     }
+
+    _histories = await ref.read(relationHistoryVM.notifier).fetchRelationHistory(widget.friendId);
+
     final interval = calculatePeriod(relation!.period);
     final remainingDays = calculateRemainingDays(relation!.period);
     setState(() {
@@ -292,7 +297,23 @@ class _SetRelationTimerState extends ConsumerState<SetRelationTimer> {
                           color: Theme.of(context).colorScheme.tertiary,
                         ),
                       ),
-                    )
+                    ),
+                   Column(children: [
+                     for(RelationHistoryModel history in _histories)
+                       ListTile(
+                         title: Row(
+                           children: [
+                             Text(
+                               history.endDate.substring(0, 10),
+                               style: const TextStyle(
+                                 fontWeight: FontWeight.bold,
+                               ),
+                             ),
+                           ],
+                         ),
+                       )
+
+                   ],)
                   ],
                 ),
               ),

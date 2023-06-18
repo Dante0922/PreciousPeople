@@ -8,7 +8,9 @@ import 'package:precious_people/features/friend/repos/friend_repo.dart';
 
 import '../../../utils.dart';
 import '../../authentication/repos/authentication_repo.dart';
+import '../models/relation_history_model.dart';
 import '../models/relation_model.dart';
+import '../repos/relation_history_repo.dart';
 import '../repos/relation_repo.dart';
 
 class RelationViewModel extends AsyncNotifier<List<RelationModel>> {
@@ -40,7 +42,6 @@ class RelationViewModel extends AsyncNotifier<List<RelationModel>> {
       BuildContext context, String friendId, String period) async {
     final uid = _auth.user!.uid;
     final friend = await _friendRepository.findFriend(friendId);
-
     state = const AsyncValue.loading();
     final relation = RelationModel(
         registerUserId: uid,
@@ -88,17 +89,25 @@ class RelationViewModel extends AsyncNotifier<List<RelationModel>> {
     });
   }
 
-  Future<void> resetRelation(
+  Future<void> completeAndResetRelation(
       BuildContext context, String friendId, RelationModel relation) async {
     final uid = _auth.user!.uid;
     state = const AsyncValue.loading();
     final newRelation = relation!.copyWith(
         endDate: DateTime.now()
             .add(Duration(days: int.parse(relation.period)))
-            .toString());
+            .toString(),
+        lastContact: DateTime.now().toString());
+
 
     state = await AsyncValue.guard(() async {
       await _relationRepository.updateRelation(friendId, newRelation);
+      await ref.read(relationHistoryRepo).createRelationHistory(
+          friendId,
+          RelationHistoryModel(
+              friendId: friendId,
+              startDate: relation.startDate,
+              endDate: DateTime.now().toString()));
       _list = await _fetchRelations(uid);
       return _list;
     });

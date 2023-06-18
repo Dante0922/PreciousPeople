@@ -53,7 +53,7 @@ class _RelationListScreenState extends ConsumerState<RelationListScreen> {
   void _setDone(BuildContext context, RelationModel relation) async {
     await ref
         .read(relationViewModel.notifier)
-        .resetRelation(context, relation.friendId, relation);
+        .completeAndResetRelation(context, relation.friendId, relation);
     popSnackBar();
   }
 

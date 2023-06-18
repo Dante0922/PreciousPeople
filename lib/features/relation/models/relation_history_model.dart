@@ -1,20 +1,24 @@
-class RelationHistory{
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../repos/relation_history_repo.dart';
+
+class RelationHistoryModel{
   String friendId;
   String startDate;
   String endDate;
 
-  RelationHistory({
+  RelationHistoryModel({
     required this.friendId,
     required this.startDate,
     required this.endDate,
   });
 
-  RelationHistory copyWith({
+  RelationHistoryModel copyWith({
     String? friendId,
     String? startDate,
     String? endDate,
   }) {
-    return RelationHistory(
+    return RelationHistoryModel(
       friendId: friendId ?? this.friendId,
       startDate: startDate ?? this.startDate,
       endDate: endDate ?? this.endDate,
@@ -29,11 +33,12 @@ class RelationHistory{
     };
   }
 
-  factory RelationHistory.fromJson(Map<String, dynamic> map) {
-    return RelationHistory(
+  factory RelationHistoryModel.fromJson(Map<String, dynamic> map) {
+    return RelationHistoryModel(
       friendId: map['friendId'] as String,
       startDate: map['startDate'] as String,
       endDate: map['endDate'] as String,
     );
   }
 }
+

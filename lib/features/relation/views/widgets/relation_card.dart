@@ -7,7 +7,6 @@ import 'package:precious_people/constants/gaps.dart';
 import 'package:precious_people/features/friend/view_models/friend_view_model.dart';
 import 'package:precious_people/features/relation/models/relation_model.dart';
 
-
 import '../../../../constants/sizes.dart';
 import '../set_relation_timer_screen.dart';
 
@@ -21,7 +20,7 @@ class RelationCard extends ConsumerStatefulWidget {
       {super.key,
       required this.index,
       required this.relation,
-        required this.setSnoozeFunction,
+      required this.setSnoozeFunction,
       required this.setDoneFunction});
 
   @override
@@ -87,7 +86,7 @@ class _RelationCardState extends ConsumerState<RelationCard> {
           extentRatio: 0.25,
           motion: const ScrollMotion(),
           dismissible: DismissiblePane(
-            onDismissed: ()=> widget.setSnoozeFunction(),
+            onDismissed: () => widget.setSnoozeFunction(),
           ),
           children: [
             SlidableAction(
@@ -95,7 +94,7 @@ class _RelationCardState extends ConsumerState<RelationCard> {
               spacing: 5,
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               foregroundColor: Theme.of(context).colorScheme.secondary,
-              onPressed: (_)=> widget.setSnoozeFunction(),
+              onPressed: (_) => widget.setSnoozeFunction(),
               icon: Icons.snooze,
               label: '스누즈',
             ),
@@ -210,8 +209,8 @@ class _RelationCardState extends ConsumerState<RelationCard> {
                       ),
                     ),
                     Positioned(
-                      right: 50,
-                      top: 24,
+                      left: 200,
+                      top: 16,
                       bottom: 10,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -228,11 +227,20 @@ class _RelationCardState extends ConsumerState<RelationCard> {
                             ),
                           ),
                           Gaps.v1,
+                          widget.relation.lastContact == "" || widget.relation.lastContact == null
+                              ? Text(
+                                  "마지막 기록: 없음",
+                                  style: TextStyle(
+                                    color: Colors.grey.shade500,
+                                    fontSize: Sizes.size11,
+                                  ),
+                                )
+                              :
                           Text(
-                            "마지막 기록: 하루 전",
+                            "마지막 기록: ${widget.relation.lastContact.toString().substring(0, 10)}",
                             style: TextStyle(
                               color: Colors.grey.shade500,
-                              fontSize: Sizes.size12,
+                              fontSize: Sizes.size11,
                             ),
                           ),
                         ],
